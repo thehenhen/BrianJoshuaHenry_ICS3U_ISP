@@ -2,6 +2,10 @@
     font-family: 'PT Sans';
 }
 
+#content {
+    margin-left: 1%;
+}
+
 #topnav {
     background-color: black;
     overflow: hidden;
@@ -23,6 +27,23 @@
     background-color: gray;
 }
 
-.home-section {
+.title-section {
     padding: 0px 0px;
+}
+
+table {
+    margin: auto;
+    width: 90%;
+    text-align: center;
+    border: 1px dotted;
+}
+
+tr, td {
+    margin: auto;
+    width: 30%;
+    border: 1px dotted;
+}
+
+td:hover {
+    background-color: gray;
 }
