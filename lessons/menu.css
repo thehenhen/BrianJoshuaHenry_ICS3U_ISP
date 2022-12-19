@@ -22,19 +22,3 @@
 #topnav a:hover {
     background-color: gray;
 }
-
-.home-section {
-    padding: 0px 0px;
-}
-
-#section-1 {
-    background-color: red;
-}
-
-#section-2 {
-    background-color: green;
-}
-
-#section-3 {
-    background-color: blue;
-}
