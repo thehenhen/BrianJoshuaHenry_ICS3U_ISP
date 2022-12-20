@@ -52,3 +52,9 @@
     display: table;
     clear: both;
   }
+
+.pfp {
+    width: 65px;
+    float: right;
+    margin-right:50px;
+}
