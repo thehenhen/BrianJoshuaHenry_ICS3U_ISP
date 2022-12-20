@@ -1,5 +1,6 @@
 * {
     font-family: 'PT Sans';
+    box-sizing: border-box;
 }
 
 #topnav {
@@ -26,3 +27,24 @@
 .home-section {
     padding: 0px 0px;
 }
+
+#section-1 {
+    margin-left: 1%;
+}
+
+#section-2 {
+    margin-left: 1%
+}
+
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 40px;
+    height: 300px; 
+  }
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
