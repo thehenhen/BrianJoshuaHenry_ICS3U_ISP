@@ -58,3 +58,58 @@
     float: right;
     margin-right:50px;
 }
+
+.sidenav {
+    height: 100%;
+    width: 0;   
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #000000;
+    padding: top 40px;
+    transition: 0.4s;
+    overflow-x: hidden;
+    
+}
+
+.sidenav a {
+    padding: 7px 7px 7px 32px;
+    font-size: 30px;
+    display:block;
+    transition:0.3s;
+    text-decoration:none;
+    color: #818181;
+}
+
+.sidenav a:hover {
+    color: #D3D3D3;
+}
+
+.sidenav .exit {
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin: left 50px;
+    position: absolute;
+}
+
+#main {
+    transition: margin-left .4s;
+    padding: 20px;
+}
+
+.menubtn {
+    padding-left:5%;
+    padding-top:100%;
+}
+
+.menubtn{ 
+    font-size:50px;
+    cursor:pointer; 
+    padding-left: 25px;
+    padding-right:10px;
+    margin-bottom: 15px;
+    display: inline-block;
+    vertical-align: middle;
+}
