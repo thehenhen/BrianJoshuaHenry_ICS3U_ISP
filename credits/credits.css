@@ -99,16 +99,11 @@
     padding: 20px;
 }
 
-.menubtn {
-    padding-left:5%;
-    padding-top:100%;
-}
-
 .menubtn{ 
     font-size:50px;
     cursor:pointer; 
     padding-left: 25px;
-    padding-right:10px;
+    padding-right: 10px;
     margin-bottom: 15px;
     display: inline-block;
     vertical-align: middle;
