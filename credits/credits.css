@@ -32,13 +32,6 @@
     padding: 0px 0px;
 }
 
-#section-1 {
-    margin-left: 1%;
-}
-
-#section-2 {
-    margin-left: 1%
-}
 
 .column {
     float: left;
@@ -54,9 +47,11 @@
   }
 
 .pfp {
-    width: 65px;
+    width: 80px;
     float: right;
-    margin-right:50px;
+    margin-right:30px;
+    border-radius: 50%;
+    border:5px solid white
 }
 
 .sidenav {
