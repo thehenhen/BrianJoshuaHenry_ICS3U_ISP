@@ -1,10 +1,5 @@
 * {
     font-family: 'PT Sans';
-    box-sizing: border-box;
-}
-
-#content {
-    margin-left: 1%;
 }
 
 #topnav {
@@ -28,30 +23,44 @@
     background-color: gray;
 }
 
-.home-section {
+.title-section {
     padding: 0px 0px;
 }
 
+table {
+    margin: auto;
+    width: 90%;
+    text-align: center;
+    border: 1px dotted;
+}
 
-.column {
-    float: left;
-    width: 33.33%;
-    padding: 40px;
-    height: 300px; 
-  }
+tr, td {
+    margin: auto;
+    width: 30%;
+    border: 1px dotted;
+    height: 10px;
+}
 
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+td h2 {
+    font-size: 25px;
+    transition: 0.3s;
+}
 
-.pfp {
-    width: 80px;
-    float: right;
-    margin-right:30px;
-    border-radius: 20%;
-    border:5px solid white
+td h2:hover {
+    font-size: 27px;
+    transition: 0.3s;
+}
+
+td:hover {
+    font-size: 26px;
+    transition: 0.3s;
+    background-color: gray;
+    position: relative;
+}
+
+#main {
+    padding: 20px;
+    transition: margin-left .4s;
 }
 
 .sidenav {
@@ -71,9 +80,9 @@
 .sidenav a {
     padding: 7px 7px 7px 32px;
     font-size: 30px;
-    display:block;
-    transition:0.3s;
-    text-decoration:none;
+    display: block;
+    transition: 0.3s;
+    text-decoration: none;
     color: #818181;
 }
 
@@ -89,18 +98,14 @@
     position: absolute;
 }
 
-#main {
-    transition: margin-left .4s;
-    padding: 20px;
-}
-
-.menubtn { 
-    font-size:30px;
-    cursor:pointer; 
+.menubtn {
+    font-size: 30px;
+    cursor: pointer;
     padding-top: 10px;
     padding-left: 25px;
     padding-right: 10px;
     margin-bottom: 15px;
-    display: inline-block;  
+    display: inline-block;
     vertical-align: middle;
 }
+
