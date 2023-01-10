@@ -13,12 +13,21 @@ function setup(){
     var x = (windowWidth - width) / 2;
     var y = (windowHeight - height) / 2;
     cnv.position(x, y);
-    background(205);
+    background(0);
+    rectMode(CENTER);
+
+    //draws the border
+    rect(500, 275, 995, 545);
 }
 
 function draw(){
-    fill(0);
-    ellipse(100,100,100,100); 
+    //titles of all the sections, the features of a BIT
+    textSize(30);
+    textAlign(LEFT, CENTER);
+    textFont("PT Sans");
+
+    text("Features", 25, 50);
+    text("How it Works", 25, 250);
 }
 
 
