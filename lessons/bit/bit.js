@@ -7,17 +7,19 @@ function closeNav() {
     document.getElementById("main").style.marginLeft = "0";
 }
 
-//lesson portion
+//lesson part
 function setup(){
-    var cnv = createCanvas(1200, 450);
+    var cnv = createCanvas(1000, 550);
     var x = (windowWidth - width) / 2;
-    var y = 3 * (windowHeight - height) / 4;
+    var y = (windowHeight - height) / 2;
     cnv.position(x, y);
-    background(0);
+    background(205);
 }
 
-function windowResized(){
-    width = windowWidth;
-    height = windowHeight;
-    resizeCanvas(width, height);
+function draw(){
+    fill(0);
+    ellipse(100,100,100,100); 
 }
+
+
+
