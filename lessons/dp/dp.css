@@ -1,6 +1,7 @@
 #main {
     padding: 20px;
     transition: margin-left .4s;
+    font-family: 'PT Sans';
 }
 
 .sidenav {
