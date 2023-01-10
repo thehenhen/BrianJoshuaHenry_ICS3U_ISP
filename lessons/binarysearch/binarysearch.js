@@ -6,3 +6,12 @@ function closeNav() {
     document.getElementById("navbar").style.width = "0";
     document.getElementById("main").style.marginLeft = "0";
 }
+
+function setup(){
+    createCanvas(100,100);
+    background(0);
+}
+
+function draw(){
+
+}
