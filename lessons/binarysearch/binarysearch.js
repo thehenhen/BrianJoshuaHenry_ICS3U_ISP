@@ -8,10 +8,14 @@ function closeNav() {
 }
 
 function setup(){
-    createCanvas(100,100);
-    background(0);
+    var cnv = createCanvas(800, 500);
+    var x = (windowWidth - width) / 2;
+    var y = (windowHeight - height) / 2;
+    cnv.position(x, y);
+    background(205);
 }
 
 function draw(){
-
+    fill(0);
+    ellipse(100,100,100,100); 
 }
