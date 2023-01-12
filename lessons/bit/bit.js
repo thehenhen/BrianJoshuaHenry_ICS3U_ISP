@@ -12,11 +12,14 @@ let keywordColor = "#DA2828";
 let hoverColor = "#2CEA90";
 let defaultTextColor = "#000000";
 
-let rootCellColor = "#59DC33";
-let affectedCellColor = "#93FA75";
+let rootCellColorQuery = "#59DC33";
+let affectedCellColorQuery = "#93FA75";
+let rootCellColorUpdate = "#DA2828";
+let affectedCellColorUpdate = "#EA7777";
 
 //true = querying mode, false = updating mode
 let mode = true;
+let sliderX = 520;
 
 //lesson part
 function setup(){
@@ -66,7 +69,7 @@ function draw(){
     text("- Continuously adds the        for the next cell to query", 25, 345); //todo add special words to "query" and "update"
     text("- Continuously subtracts the LSB for the next cell to update", 25, 395);
     text("- Can compute prefix sums, prefix min/max, and count inversions", 25, 445);
-    text("- Despite what the name implies, the BIT is not stored using a tree structure", 25, 495);
+    text("- Despite what the name implies, the \"tree\" is actually stored in an array", 25, 495);
 
     if (collidePointRect(mouseX, mouseY, 232, 333, 32, 20)) fill(color(hoverColor));
     else fill(color(keywordColor));
@@ -75,6 +78,47 @@ function draw(){
     text("LSB", 232, 345);
     noFill();
 
+    textSize(20);
+    textAlign(CENTER);
+    //switch for changing between modes
+    if (mode){
+        //drawing the base slider
+        fill(rootCellColorQuery);
+        rect(500, 180, 80, 40, 20);
+
+        //changing the x coordinate if we need to
+        if (sliderX < 520) sliderX += 3;
+
+        //drawing the ball inside
+        if (collidePointRect(mouseX, mouseY, 460, 160, 80, 40, 20)) fill(rootCellColorUpdate);
+        else fill(defaultTextColor);
+
+        ellipse(sliderX, 180, 30, 30);
+
+        //drawing the text
+        fill(rootCellColorQuery);
+        text("Query", 500, 220);
+    } else {
+        //drawing the base slider
+        fill(rootCellColorUpdate);
+        rect(500, 180, 80, 40, 20);
+
+        //changing the x coordinate if we need to
+        if (sliderX > 482) sliderX -= 3;
+
+        //drawing the ball inside
+        if (collidePointRect(mouseX, mouseY, 460, 160, 80, 40, 20)) fill(rootCellColorQuery);
+        else fill(defaultTextColor);
+
+        ellipse(sliderX, 180, 30, 30);
+
+        //drawing the text
+        fill(rootCellColorUpdate);
+        text("Update", 500, 220);
+    }
+    textAlign(CORNER);
+
+    //visual demonstration
     affectedCells = [];
 
     let rootCell = 0;
@@ -92,6 +136,9 @@ function draw(){
                 }
             } else {
                 //updating mode
+                for (let j = i; j <= 20; j += (j & -j)){
+                    affectedCells.push(j);
+                }
             }
         }
     }
@@ -101,6 +148,7 @@ function draw(){
     textSize(20);
     textAlign(CENTER, CENTER);
     fill(defaultTextColor);
+
     //information about the number under "Visual Demonstration"
     if (rootCell != 0){
         let info = `${rootCell}: {`;
@@ -118,11 +166,17 @@ function draw(){
         text(info, 660, 80);
     }
 
-    //visual demonstration - a sample array with 10 indices
+    //drawing the array with 20 indices
     for (let i = 1; i <= 20; i++){
-        if (i == rootCell) fill(color(rootCellColor));
-        else if (affectedCells.includes(i)) fill(color(affectedCellColor));
-        else noFill();
+        if (mode){
+            if (i == rootCell) fill(color(rootCellColorQuery));
+            else if (affectedCells.includes(i)) fill(color(affectedCellColorQuery));
+            else noFill();
+        } else {
+            if (i == rootCell) fill(color(rootCellColorUpdate));
+            else if (affectedCells.includes(i)) fill(color(affectedCellColorUpdate));
+            else noFill();
+        }
 
         rect(400 + 25 * i, 120, 25, 50);
     }
@@ -145,6 +199,11 @@ function mouseClicked(){
 
     if (collidePointRect(mouseX, mouseY, 232, 333, 32, 20)){
         alert("The Least Significant Bit (LSB) of a number is the active bit with the smallest value in that number. For example, the LSB of 14 (1110) is the 2nd bit, with value 2.");
+    }
+
+    //slider
+    if (collidePointRect(mouseX, mouseY, 460, 160, 80, 40, 20)){
+        mode = !mode;
     }
 }
 
