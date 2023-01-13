@@ -47,30 +47,25 @@ function draw(){
     fill(color(defaultTextColor));
 
     text("Features", 25, 50);
-    text("How it Works", 25, 260);
+    text("How it Works", 25, 280);
     text("Visual Demonstration", 525, 50);
 
     //feature descriptions
     textSize(20);
-    text("- Can make range updates and queries", 25, 95);
+    text("- Can make point updates and range queries", 25, 95);
     text("- Used for sum, min/max, and other ranges", 25, 145);
     text("- Takes O(log N) per update / query", 25, 195);
-    text("- Overall O(N log N) memory", 25, 245);
-
-    //mouse hover
-    if (collidePointRect(mouseX, mouseY, 263, 136, 70, 18)) fill(color(hoverColor));
-    else fill(color(keywordColor));
+    text("- Overall O(N log N) memory for an array of size N", 25, 245);
 
     //special word
-    text("dynamic", 263, 145);
     fill(color(defaultTextColor));
 
     //how it works
-    text("- Uses the bits of a number to loop through cells", 25, 295);
-    text("- Continuously adds the        for the next cell to query", 25, 345); //todo add special words to "query" and "update"
-    text("- Continuously subtracts the LSB for the next cell to update", 25, 395);
-    text("- Can compute prefix sums, prefix min/max, and count inversions", 25, 445);
-    text("- Despite what the name implies, the \"tree\" is actually stored in an array", 25, 495);
+    text("- Represented as a complete binary tree", 25, 315);
+    text("- Every node represents an interval within the array", 25, 365); 
+    text("- Other than leaves, nodes split their interval to their children", 25, 415);
+    text("- When querying a range, represents it as <= log N nodes of the tree", 25, 465);
+    text("- When updating a point, moves up the tree, updating each interval that contains it", 25, 515);
 
     if (collidePointRect(mouseX, mouseY, 232, 333, 32, 20)) fill(color(hoverColor));
     else fill(color(keywordColor));
