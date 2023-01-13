@@ -47,7 +47,7 @@ function draw(){
     fill(color(defaultTextColor));
 
     text("Features", 25, 50);
-    text("How it Works", 25, 260);
+    text("How it Works", 25, 250);
     text("Visual Demonstration", 525, 50);
 
     //feature descriptions
@@ -56,30 +56,38 @@ function draw(){
     text("- Unlike prefix sum array, is        ", 25, 145);
     text("- Takes O(log N) per update / query", 25, 195);
 
-    //mouse hover
+    //special word
     if (collidePointRect(mouseX, mouseY, 263, 136, 70, 18)) fill(color(hoverColor));
     else fill(color(keywordColor));
-
-    //special word
     text("dynamic", 263, 145);
     fill(color(defaultTextColor));
 
     //how it works
     text("- Uses the bits of a number to loop through cells", 25, 295);
-    text("- Continuously adds the        for the next cell to query", 25, 345); //todo add special words to "query" and "update"
-    text("- Continuously subtracts the LSB for the next cell to update", 25, 395);
+    text("- Continuously subtracts the        for the next cell to", 25, 345); 
+    text("- Continuously adds the LSB for the next cell to", 25, 395);
     text("- Can compute prefix sums, prefix min/max, and count inversions", 25, 445);
     text("- Despite what the name implies, the \"tree\" is actually stored in an array", 25, 495);
 
-    if (collidePointRect(mouseX, mouseY, 232, 333, 32, 20)) fill(color(hoverColor));
-    else fill(color(keywordColor));
-
     //special word
-    text("LSB", 232, 345);
-    noFill();
+    if (collidePointRect(mouseX, mouseY, 270, 333, 32, 20)) fill(color(hoverColor));
+    else fill(color(keywordColor));
+    text("LSB", 270, 345);
 
+    rectMode(CORNER);
+    if (collidePointRect(mouseX, mouseY, 474, 335, 45, 20)) fill(color(hoverColor));
+    else fill(color(keywordColor));
+    text("query", 474, 345);
+
+    if (collidePointRect(mouseX, mouseY, 435, 385, 60, 20)) fill(color(hoverColor));
+    else fill(color(keywordColor));
+    text("update", 435, 395);
+
+    noFill();
     textSize(20);
     textAlign(CENTER);
+    rectMode(CENTER);
+
     //switch for changing between modes
     if (mode){
         //drawing the base slider
@@ -140,6 +148,9 @@ function draw(){
                     affectedCells.push(j);
                 }
             }
+            
+            //makes sure it doesn't pick up on more than one
+            break;  
         }
     }
 
@@ -181,6 +192,7 @@ function draw(){
         rect(400 + 25 * i, 120, 25, 50);
     }
     
+    //showing the decomposition of the path that the update / query takes
     fill(defaultTextColor);
     if (rootCell != 0){
         for (let i = 0; i < affectedCells.length; i++){
@@ -193,12 +205,20 @@ function draw(){
 
 function mouseClicked(){
     //popups for special words
-    if (collidePointRect(mouseX, mouseY, 263, 126, 70, 18)){
+    if (collidePointRect(mouseX, mouseY, 263, 136, 70, 18)){
         alert("If a data structure is \"dynamic\", it means that it can both be updated and queried at any given time, in optimized time complexity.");
     }
 
-    if (collidePointRect(mouseX, mouseY, 232, 333, 32, 20)){
+    if (collidePointRect(mouseX, mouseY, 270, 333, 32, 20)){
         alert("The Least Significant Bit (LSB) of a number is the active bit with the smallest value in that number. For example, the LSB of 14 (1110) is the 2nd bit, with value 2.");
+    }
+
+    if (collidePointRect(mouseX, mouseY, 474, 335, 45, 20)){
+        alert("To \"query\" a data structure is to \"ask\" it a question. For example, a query in a BIT could be to return the prefix sum from [1, R].");
+    }
+
+    if (collidePointRect(mouseX, mouseY, 435, 385, 60, 20)){
+        alert("To \"update\" a data structure is to change relevant stored values in optimized time complexity to ensure that all subsequent queries are accurate.");
     }
 
     //slider
