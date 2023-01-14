@@ -1,4 +1,5 @@
 let stage=0;
+let timer;
 function openNav() {
     document.getElementById("navbar").style.width = "250px";
     document.getElementById("main").style.marginLeft = "250px";
@@ -9,10 +10,13 @@ function closeNav() {
 }
 
 function description(){
-    background(255);
+    fill(230);
     //draws the border
-    fill(255); 
+    stroke(0);
+    strokeWeight(5);
     rect(500, 275, 995, 545);
+    strokeWeight(1);
+    noStroke();
 
     fill(0); 
     //titles of all the sections, the features of a BIT
@@ -40,7 +44,8 @@ function description(){
 
 function show(){
     rectMode(CENTER);
-    fill(255);
+    stroke(0);
+    fill(230);
     rect(400,240,40,40);
     rect(440,240,40,40);
     rect(480,240,40,40);
@@ -55,6 +60,7 @@ function show(){
     rect(840,240,40,40);
     rect(880,240,40,40);
     textAlign(CENTER,CENTER);
+    noStroke();
     fill(0);
     text("0",400,240);
     text("1",440,240);
@@ -70,9 +76,145 @@ function show(){
     text("15",840,240);
     text("17",880,240);
     if(stage==0){
-        text("Start",640,280);
-    }else if(stage==1){
-        
+        fill(255);
+        stroke(0);
+        if(mouseX>600 && mouseX<680 && mouseY>300 && mouseY<340){
+            fill(200);
+        }
+        rect(640,320,80,40,5);
+        noStroke();
+        fill(0);
+        text("Start",640,320);
+    } else if(stage==1){
+        fill(255);
+        stroke(0);
+        if(mouseX>600 && mouseX<680 && mouseY>300 && mouseY<340){
+            fill(200);
+        }
+        rect(640,320,80,40,5);
+        noStroke();
+        fill(0);
+        text("Stop",640,320);
+        text("Looking for 6",640,190);
+
+        bracket(0,0);
+        bracket(1,13);
+
+        if(millis()-timer>2000){
+            stage=2;
+            timer=millis();
+        }
+    } else if(stage==2){
+        fill(255);
+        stroke(0);
+        if(mouseX>600 && mouseX<680 && mouseY>300 && mouseY<340){
+            fill(200);
+        }
+        rect(640,320,80,40,5);
+        noStroke();
+        fill(0);
+        text("6 ? 9",640,180);
+        text("Stop",640,320);
+
+        bracket(0,0);
+        bracket(1,13);
+        arrow(6);
+        if(millis()-timer>1000){
+            stage=3;
+            timer=millis();
+        }
+    } else if(stage==3){
+        fill(255);
+        stroke(0);
+        if(mouseX>600 && mouseX<680 && mouseY>300 && mouseY<340){
+            fill(200);
+        }
+        rect(640,320,80,40,5);
+        noStroke();
+        fill(0);
+        text("6 < 9",640,180);
+        text("Stop",640,320);
+
+        bracket(0,0);
+        bracket(1,13);
+        arrow(6);
+        if(millis()-timer>1000){
+            stage=4;
+            timer=millis();
+        }
+    } else if(stage==4){
+        fill(255);
+        stroke(0);
+        if(mouseX>600 && mouseX<680 && mouseY>300 && mouseY<340){
+            fill(200);
+        }
+        rect(640,320,80,40,5);
+        noStroke();
+        fill(0);
+        text("6 ? 3",480,180);
+        text("Stop",640,320);
+
+        bracket(0,0);
+        bracket(1,6);
+        arrow(2);
+        if(millis()-timer>1000){
+            stage=5;
+            timer=millis();
+        }
+    } else if(stage==5){
+        fill(255);
+        stroke(0);
+        if(mouseX>600 && mouseX<680 && mouseY>300 && mouseY<340){
+            fill(200);
+        }
+        rect(640,320,80,40,5);
+        noStroke();
+        fill(0);
+        text("6 > 3",480,180);
+        text("Stop",640,320);
+
+        bracket(0,0);
+        bracket(1,6);
+        arrow(2);
+        if(millis()-timer>1000){
+            stage=6;
+            timer=millis();
+        }
+    } else if(stage==6){
+        fill(255);
+        stroke(0);
+        if(mouseX>600 && mouseX<680 && mouseY>300 && mouseY<340){
+            fill(200);
+        }
+        rect(640,320,80,40,5);
+        noStroke();
+        fill(0);
+        text("6 ? 6",560,180);
+        text("Stop",640,320);
+
+        bracket(0,3);
+        bracket(1,6);
+        arrow(4);
+        if(millis()-timer>1000){
+            stage=7;
+            timer=millis();
+        }
+    } else if(stage==7){
+        fill(255);
+        stroke(0);
+        if(mouseX>600 && mouseX<680 && mouseY>300 && mouseY<340){
+            fill(200);
+        }
+        rect(640,320,80,40,5);
+        noStroke();
+        fill(0);
+        text("6 = 6!",565,180);
+        text("Found 6!",640,180);
+        text("Restart",640,320);
+
+        bracket(0,3);
+        bracket(1,6);
+        arrow(4);
     }
     textAlign(LEFT,CENTER);
 }
@@ -85,20 +227,59 @@ function setup(){
     background(0);
     rectMode(CENTER);
 
-    
-
     textAlign(CENTER,CENTER);
     textSize(20);
     // 0 Start screen
-    // 1 How to find efficiently element in a sorted array: 
-    // 2 start at middle
+    // 1 Steps: 
+    //   start at middle
     //   Compare element with middle of array
     //   If middle of array is smaller, then delete bottom half of array
     //   Restart
-    // 3 practice using links
 }
 
 function draw(){
     description();
     show();
-}   
+    console.log(stage);
+}
+
+function mousePressed(){
+    if(mouseX>600 && mouseX<680 && mouseY>300 && mouseY<340){
+        if(stage==0 || stage==7){
+            stage=1;
+            timer=millis();
+        }else{
+            stage=0;
+        }
+    }
+}
+
+function bracket(type,level){
+    if(type==0){
+        noStroke();
+
+        fill(156, 14, 14);
+        rect(375+level*40,240,10,80);
+        rect(385+level*40,200,30,10);
+        rect(385+level*40,280,30,10);
+
+        stroke(0);
+    }else{
+        noStroke();
+
+        fill(156, 14, 14);
+        rect(385+level*40,240,10,80);
+        rect(375+level*40,200,30,10);
+        rect(375+level*40,280,30,10);
+
+        stroke(0);
+    }
+}
+
+function arrow(level){
+    noStroke();
+    fill(156, 14, 14);
+    rect(400+40*level,200,10,10);
+    triangle(400+40*level-10,200,400+40*level+10,200,400+40*level,215);
+    stroke(0);
+}
