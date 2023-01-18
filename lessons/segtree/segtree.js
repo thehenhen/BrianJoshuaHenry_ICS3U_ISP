@@ -21,6 +21,15 @@ let affectedCellColorUpdate = "#EA7777";
 let mode = true;
 let sliderX = 890;
 
+//visual demonstration
+let locked = false;
+let L = 0;
+let R = 0;
+
+//array for storing all affected nodes
+let affectedNodes = []
+let rootNodes = []
+
 //lesson part
 function setup(){
     var cnv = createCanvas(1000, 550);
@@ -40,11 +49,12 @@ function draw(){
     rect(500, 275, 995, 545);
     strokeWeight(1);
 
-    //titles of all the sections, the features of a BIT
+    //titles of all the sections, the features of a seg tree
     textSize(30);
     textAlign(LEFT, CENTER);
     textFont("PT Sans");
-    fill(color(defaultTextColor));
+    fill(color(defaultTextColor));  
+    noStroke();
 
     text("Features", 25, 50);
     text("How it Works", 25, 280);
@@ -61,136 +71,196 @@ function draw(){
     fill(color(defaultTextColor));
 
     //how it works
-    text("- Represented as a complete binary tree", 25, 315);
+    text("- Represented as a", 25, 315);
     text("- Every node represents an interval within the array", 25, 365); 
     text("- Other than leaves, nodes split their interval to their children", 25, 415);
     text("- When querying a range, represents it as <= log N nodes of the tree", 25, 465);
     text("- When updating a point, moves up the tree, updating each interval that contains it", 25, 515);
 
-    if (collidePointRect(mouseX, mouseY, 232, 333, 32, 20)) fill(color(hoverColor));
-    else fill(color(keywordColor));
-
     //special word
-    text("LSB", 232, 345);
+    if (collidePointRect(mouseX, mouseY, 187, 305, 178, 20)) fill(color(hoverColor));
+    else fill(color(keywordColor));
+    text("complete binary tree", 187, 315);
     noFill();
 
     textSize(20);
     textAlign(CENTER);
     //switch for changing between modes
     if (mode){
+        strokeWeight(1);
+        stroke(0);
         //drawing the base slider
         fill(rootCellColorQuery);
-        rect(870, 180, 80, 40, 20);
+        rect(870, 50, 80, 40, 20);
 
         //changing the x coordinate if we need to
         if (sliderX < 888) sliderX += 3;
 
         //drawing the ball inside
-        if (collidePointRect(mouseX, mouseY, 830, 160, 80, 40, 20)) fill(rootCellColorUpdate);
+        if (collidePointRect(mouseX, mouseY, 830, 30, 80, 40, 20)) fill(rootCellColorUpdate);
         else fill(defaultTextColor);
 
-        ellipse(sliderX, 180, 30, 30);
+        ellipse(sliderX, 50, 30, 30);
 
         //drawing the text
         fill(rootCellColorQuery);
-        text("Query", 870, 220);
+        noStroke();
+        text("Query", 950, 50);
     } else {
+        strokeWeight(1);
+        stroke(0);
         //drawing the base slider
         fill(rootCellColorUpdate);
-        rect(870, 180, 80, 40, 20);
+        rect(870, 50, 80, 40, 20);
 
         //changing the x coordinate if we need to
-        if (sliderX > 852) sliderX -= 3;
+        if (sliderX > 851) sliderX -= 3;
 
         //drawing the ball inside
-        if (collidePointRect(mouseX, mouseY, 830, 160, 80, 40, 20)) fill(rootCellColorQuery);
+        if (collidePointRect(mouseX, mouseY, 830, 30, 80, 40, 20)) fill(rootCellColorQuery);
         else fill(defaultTextColor);
 
-        ellipse(sliderX, 180, 30, 30);
+        ellipse(sliderX, 50, 30, 30);
 
         //drawing the text
         fill(rootCellColorUpdate);
-        text("Update", 870, 220);
+        noStroke();
+        text("Update", 950, 50);
     }
     textAlign(CORNER);
 
     //visual demonstration
-    affectedCells = [];
-
-    let rootCell = 0;
-
-    for (let i = 1; i <= 20; i++){
-        //if the mouse collides with this square
-        if (collidePointRect(mouseX, mouseY, 387.5 + 25 * i, 95, 25, 50)){
-            rootCell = i;
-
-            console.log(rootCell);
-            if (mode){
-                //querying mode
-                for (let j = i; j > 0; j -= (j & -j)){
-                    affectedCells.push(j);
-                }
-            } else {
-                //updating mode
-                for (let j = i; j <= 20; j += (j & -j)){
-                    affectedCells.push(j);
-                }
-            }
-        }
-    }
-
-    console.log(rootCell);
-
     textSize(20);
     textAlign(CENTER, CENTER);
-    fill(defaultTextColor);
-
-    //information about the number under "Visual Demonstration"
-    if (rootCell != 0){
-        let info = `${rootCell}: {`;
-
-        for (let i = 0; i < affectedCells.length; i++){
-            info += `${affectedCells[i]}`;
-
-            if (i != affectedCells.length - 1){
-                info += ", ";
-            } else {
-                info += "}";
-            }
-        }
-
-        text(info, 660, 80);
-    }
-
-    //drawing the array with 20 indices
-    for (let i = 1; i <= 20; i++){
-        if (mode){
-            if (i == rootCell) fill(color(rootCellColorQuery));
-            else if (affectedCells.includes(i)) fill(color(affectedCellColorQuery));
-            else noFill();
-        } else {
-            if (i == rootCell) fill(color(rootCellColorUpdate));
-            else if (affectedCells.includes(i)) fill(color(affectedCellColorUpdate));
-            else noFill();
-        }
-
-        rect(400 + 25 * i, 120, 25, 50);
-    }
-    
-    fill(defaultTextColor);
-    if (rootCell != 0){
-        for (let i = 0; i < affectedCells.length; i++){
-
-            text(`${affectedCells[i]} -> ${bitRep(affectedCells[i])}`, 660, 180 + i * 20);
-        }
-    }
     noFill();
+
+
+    //calculates the range here
+    let leftBox = min(L, R);
+    let rightBox = max(L, R);
+
+    //coloring the boxes within range
+    for (i = 1; i <= 8; i++){
+        strokeWeight(1);
+        stroke(0);
+
+        //querying
+        if (mode){
+            if (leftBox <= i && i <= rightBox) fill(rootCellColorQuery);
+            else noFill();
+        } 
+        //updating
+        else {
+            if (leftBox <= i && i <= rightBox) fill(rootCellColorUpdate);
+            else noFill();
+        }
+        
+
+        rect(450 + (i * 50), 110, 50, 50);
+        fill(defaultTextColor);
+        noStroke();
+        text(i, 450 + (i * 50), 110);
+    }
+
+    //renders the tree - each node is a rectangle that shows the interval
+    rectMode(CENTER);
+    stroke(0);
+    strokeWeight(5);
+    textSize(15);
+
+    affectedNodes = [];
+    rootNodes = [];
+
+    checkTree(1, 1, 8, 4, leftBox, rightBox);
+    buildTree(1, 320, 800, 4);
+
+    noFill();
+}
+
+//function for coloring the tree
+function checkTree(root, lt, rt, level, queriedL, queriedR){
+    //in the interval
+    if (queriedL <= lt && rt <= queriedR){
+        rootNodes.push(root);
+        return true;
+    } else {
+        //should we recurse?
+        if (queriedR < lt || rt < queriedL) return false;
+
+        //getting children values
+        leftChild = checkTree(root * 2, lt, floor((lt + rt) / 2), level - 1, queriedL, queriedR);
+        let localLeftChild = leftChild;
+        rightChild = checkTree(root * 2 + 1, floor((lt + rt) / 2) + 1, rt, level - 1, queriedL, queriedR);
+        let localRightChild = rightChild;
+
+        //this node is along the way
+        if (leftChild || rightChild){
+            affectedNodes.push(root);
+        }
+
+        return leftChild || rightChild;
+    }
+}
+
+//lt and rt are the left and right X coordinates - the function returns a the x-coordinate for its top center
+function buildTree(root, lt, rt, level){
+    mid = (lt + rt) / 2;
+    boxY = 400 - 60  * level;
+
+    //local versions of the parameters, since javascript function parameters aren't local
+    let localRoot = root, localLt = lt, localRt = rt, localLevel = level, localMid = mid, localBoxY = boxY;
+
+    strokeWeight(1);
+    stroke(0);
+
+    //draws the node
+    if (mode){
+        if (rootNodes.includes(localRoot)) fill(rootCellColorQuery);
+        else if (affectedNodes.includes(localRoot)) fill(affectedCellColorQuery);
+        else fill(0);
+    } else {
+        if (rootNodes.includes(localRoot) || affectedNodes.includes(localRoot)) fill(rootCellColorUpdate);
+        else fill(defaultTextColor);
+    }
+
+    rect(mid + 150, boxY + 20, 50, 25);
+
+    //writes the interval
+    if (mode){
+        if (rootNodes.includes(localRoot)) fill(rootCellColorQuery);
+        else fill(0);
+    } else {
+        fill(0);    
+    }
+
+    let leftIndex = (localLt - 260) / 60, rightIndex = ((localRt - localLt) / 60) + leftIndex - 1;
+    noStroke();
+    text(`[${leftIndex}, ${rightIndex}]`, mid + 150, boxY + 50);
+    
+    //checks for recursion to children
+    if (level == 1){
+        //leaf node
+        return (localLt + localRt) / 2;
+    }
+
+    //has children to split to
+    leftChild = buildTree(root * 2, localLt, localMid, localLevel - 1);
+    let localLeftChild = leftChild
+    rightChild = buildTree(root * 2 + 1, localMid, localRt, localLevel - 1);
+    let localRightChild = rightChild;
+
+    strokeWeight(1);
+    stroke(0);
+    line(localMid + 125, localBoxY + 32.5, localLeftChild + 150, localBoxY + 67.5);
+    line(localMid + 175, localBoxY + 32.5, localRightChild + 150, localBoxY + 67.5);
+
+    return (localLt + localRt) / 2;
 }
 
 function mouseClicked(){
     //popups for special words
-    if (collidePointRect(mouseX, mouseY, 263, 126, 70, 18)){
-        alert("If a data structure is \"dynamic\", it means that it can both be updated and queried at any given time, in optimized time complexity.");
+    if (collidePointRect(mouseX, mouseY, 187, 305, 178, 20)){
+        alert("A completely binary tree is a special type of binary tree of height H in which every node that has a height < H has exactly two children. That is, a completely binary tree of height H has exactly 2^H - 1 nodes.");
     }
 
     if (collidePointRect(mouseX, mouseY, 232, 333, 32, 20)){
@@ -198,27 +268,58 @@ function mouseClicked(){
     }
 
     //slider
-    if (collidePointRect(mouseX, mouseY, 830, 160, 80, 40, 20)){
+    if (collidePointRect(mouseX, mouseY, 830, 30, 80, 40, 20)){
         mode = !mode;
+        L = 0;
+        R = 0;
     }
 }
 
-//helper function for decomposing a number into its bitwise representation
-function bitRep(x){
-    og = x
-    ret = ""
-
-    while (x > 0){
-        if (x % 2 == 1) ret = "1" + ret;
-        else ret = "0" + ret;
-
-        x = floor(x / 2);
+//if the initial click is within one of the squares, sets that to be the L value
+function mousePressed(){
+    //querying
+    if (mode){
+        if (collidePointRect(mouseX, mouseY, 475, 85, 400, 50)){
+            locked = false;
+            L = max(1, min(8, floor((mouseX - 425) / 50)));
+            R = L;
+        } else {
+            locked = true;
+        }
     }
-
-    console.log(og + " : " + ret);
-
-    return ret;
+    //updating
+    else {
+        if (collidePointRect(mouseX, mouseY, 475, 85, 400, 50)){
+            L = max(1, min(8, floor((mouseX - 425) / 50)));
+            R = L;
+        }
+    }
 }
 
+function mouseDragged(){
+    //querying
+    if (mode){
+        if (!locked){
+            R = max(1, min(8, floor((mouseX - 425) / 50)));
+        }
+    } 
+    //updating
+    else {
+        if (collidePointRect(mouseX, mouseY, 475, 85, 400, 50)){
+            L = max(1, min(8, floor((mouseX - 425) / 50)));
+            R = L;
+        }
+    }
+}
 
+function mouseReleased(){
+    //querying
+    if (mode){
+        locked = true;
+    }
+    //updating
+    else {
+        //pass
+    }
+}
 
