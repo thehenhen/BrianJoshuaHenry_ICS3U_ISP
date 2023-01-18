@@ -19,7 +19,7 @@ let affectedCellColorUpdate = "#EA7777";
 
 //true = querying mode, false = updating mode
 let mode = true;
-let sliderX = 520;
+let sliderX = 890;
 
 //lesson part
 function setup(){
@@ -80,37 +80,37 @@ function draw(){
     if (mode){
         //drawing the base slider
         fill(rootCellColorQuery);
-        rect(500, 180, 80, 40, 20);
+        rect(870, 180, 80, 40, 20);
 
         //changing the x coordinate if we need to
-        if (sliderX < 520) sliderX += 3;
+        if (sliderX < 888) sliderX += 3;
 
         //drawing the ball inside
-        if (collidePointRect(mouseX, mouseY, 460, 160, 80, 40, 20)) fill(rootCellColorUpdate);
+        if (collidePointRect(mouseX, mouseY, 830, 160, 80, 40, 20)) fill(rootCellColorUpdate);
         else fill(defaultTextColor);
 
         ellipse(sliderX, 180, 30, 30);
 
         //drawing the text
         fill(rootCellColorQuery);
-        text("Query", 500, 220);
+        text("Query", 870, 220);
     } else {
         //drawing the base slider
         fill(rootCellColorUpdate);
-        rect(500, 180, 80, 40, 20);
+        rect(870, 180, 80, 40, 20);
 
         //changing the x coordinate if we need to
-        if (sliderX > 482) sliderX -= 3;
+        if (sliderX > 852) sliderX -= 3;
 
         //drawing the ball inside
-        if (collidePointRect(mouseX, mouseY, 460, 160, 80, 40, 20)) fill(rootCellColorQuery);
+        if (collidePointRect(mouseX, mouseY, 830, 160, 80, 40, 20)) fill(rootCellColorQuery);
         else fill(defaultTextColor);
 
         ellipse(sliderX, 180, 30, 30);
 
         //drawing the text
         fill(rootCellColorUpdate);
-        text("Update", 500, 220);
+        text("Update", 870, 220);
     }
     textAlign(CORNER);
 
@@ -198,7 +198,7 @@ function mouseClicked(){
     }
 
     //slider
-    if (collidePointRect(mouseX, mouseY, 460, 160, 80, 40, 20)){
+    if (collidePointRect(mouseX, mouseY, 830, 160, 80, 40, 20)){
         mode = !mode;
     }
 }
