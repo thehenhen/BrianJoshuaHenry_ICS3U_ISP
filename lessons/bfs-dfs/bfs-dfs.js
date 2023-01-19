@@ -76,23 +76,23 @@ function show(){
     line(550,100,610,200); 
     line(580,150,550,200);
     
-    if(stage>=8){
+    if(stage>=12){
         fill(196, 64, 64);
     }
     circle(610,200,30);
-    if(stage>=7){
+    if(stage>=11){
         fill(196, 64, 64);
     }
     circle(550,200,30);
-    if(stage>=5){
+    if(stage>=8){
         fill(196, 64, 64);
     }
     circle(490,200,30);
-    if(stage>=3){
+    if(stage>=5){
         fill(196, 64, 64);
     }
     circle(580,150,30);
-    if(stage>=2){
+    if(stage>=4){
         fill(196, 64, 64);
     }
     circle(520,150,30);
@@ -153,68 +153,117 @@ function show(){
 
     textAlign(LEFT,CENTER);
     if(stage==0){
-        text("Queue: ",450,250);
-        text("Visited: ",450,280);
+        text("Queue: ",450,230);
+        text("Visited: ",450,255);
+        text("Node X: ", 450,280);
         text("Stack: ",750,250);
         text("Visited: ",750,280);
     } else if(stage==1){
-        text("Queue: A",450,250);
-        text("Visited: A",450,280);
+        text("Queue: A",450,230);
+        text("Visited: A",450,255);
+        text("Node X: ", 450,280);
         text("Stack: A",750,250);
         text("Visited: A",750,280);
     } else if(stage==2){
-        text("Queue: A, B",450,250);
-        text("Visited: A, B",450,280);
+        text("Queue: ",450,230);
+        text("Visited: A",450,255);
+        text("Node X: ", 450,280);
         text("Stack: A, B",750,250);
         text("Visited: A, B",750,280);
     } else if(stage==3){
-        text("Queue: A, B, C",450,250);
-        text("Visited: A, B, C",450,280);
+        text("Queue: ",450,230);
+        text("Visited: A",450,255);
+        text("Node X: A", 450,280);
         text("Stack: A, B, D",750,250);
         text("Visited: A, B, D",750,280);
     } else if(stage==4){
-        text("Queue: B, C",450,250);
-        text("Visited: A, B, C",450,280);
+        text("Queue: B",450,230);
+        text("Visited: A, B",450,255);
+        text("Node X: A", 450,280);
         text("Stack: A, B",750,250);
         text("Visited: A, B, D",750,280);
     } else if(stage==5){
-        text("Queue: B, C, D",450,250);
-        text("Visited: A, B, C, D",450,280);
+        text("Queue: B, C",450,230);
+        text("Visited: A, B, C",450,255);
+        text("Node X: A", 450,280);
         text("Stack: A",750,250);
         text("Visited: A, B, D",750,280);
     } else if(stage==6){
-        text("Queue: C, D",450,250);
-        text("Visited: A, B, C, D",450,280);
+        text("Queue: C",450,230);
+        text("Visited: A, B, C",450,255);
+        text("Node X: A", 450,280);
         text("Stack: A, C",750,250);
         text("Visited: A, B, D, C",750,280);
     } else if(stage==7){
-        text("Queue: C, D, E",450,250);
-        text("Visited: A, B, C, D, E",450,280);
+        text("Queue: C",450,230);
+        text("Visited: A, B, C",450,255);
+        text("Node X: B", 450,280);
         text("Stack: A, C, E",750,250);
         text("Visited: A, B, D, C, E",750,280);
     } else if(stage==8){
-        text("Queue: C, D, E, F",450,250);
-        text("Visited: A, B, C, D, E, F",450,280);
+        text("Queue: C, D",450,230);
+        text("Visited: A, B, C, D",450,255);
+        text("Node X: B", 450,280);
         text("Stack: A, C",750,250);
         text("Visited: A, B, D, C, E",750,280);
     } else if(stage==9){
-        text("Queue: D, E, F",450,250);
-        text("Visited: A, B, C, D, E, F",450,280);
+        text("Queue: D",450,230);
+        text("Visited: A, B, C, D",450,255);
+        text("Node X: B", 450,280);
         text("Stack: A, C, F",750,250);
         text("Visited: A, B, D, C, E, F",750,280);
     } else if(stage==10){
-        text("Queue: E, F",450,250);
-        text("Visited: A, B, C, D, E, F",450,280);
+        text("Queue: D",450,230);
+        text("Visited: A, B, C, D",450,255);
+        text("Node X: C", 450,280);
         text("Stack: A, C",750,250);
         text("Visited: A, B, D, C, E, F",750,280);
     } else if(stage==11){
-        text("Queue: F",450,250);
-        text("Visited: A, B, C, D, E, F",450,280);
+        text("Queue: D, E",450,230);
+        text("Visited: A, B, C, D, E",450,255);
+        text("Node X: C", 450,280);
         text("Stack: A",750,250);
         text("Visited: A, B, D, C, E, F",750,280);
     } else if(stage==12){
-        text("Queue: ",450,250);
-        text("Visited: A, B, C, D, E, F",450,280);
+        text("Queue: D, E, F",450,230);
+        text("Visited: A, B, C, D, E, F",450,255);
+        text("Node X: C", 450,280);
+        text("Stack: ",750,250);
+        text("Visited: A, B, D, C, E, F",750,280);
+    } else if(stage==13){
+        text("Queue: E, F",450,230);
+        text("Visited: A, B, C, D, E, F",450,255);
+        text("Node X: C", 450,280);
+        text("Stack: ",750,250);
+        text("Visited: A, B, D, C, E, F",750,280);
+    } else if(stage==14){
+        text("Queue: E, F",450,230);
+        text("Visited: A, B, C, D, E, F",450,255);
+        text("Node X: D", 450,280);
+        text("Stack: ",750,250);
+        text("Visited: A, B, D, C, E, F",750,280);
+    } else if(stage==15){
+        text("Queue: F",450,230);
+        text("Visited: A, B, C, D, E, F",450,255);
+        text("Node X: D", 450,280);
+        text("Stack: ",750,250);
+        text("Visited: A, B, D, C, E, F",750,280);
+    } else if(stage==16){
+        text("Queue: F",450,230);
+        text("Visited: A, B, C, D, E, F",450,255);
+        text("Node X: E", 450,280);
+        text("Stack: ",750,250);
+        text("Visited: A, B, D, C, E, F",750,280);
+    } else if(stage==17){
+        text("Queue: ",450,230);
+        text("Visited: A, B, C, D, E, F",450,255);
+        text("Node X: E", 450,280);
+        text("Stack: ",750,250);
+        text("Visited: A, B, D, C, E, F",750,280);
+    } else if(stage==18){
+        text("Queue: ",450,230);
+        text("Visited: A, B, C, D, E, F",450,255);
+        text("Node X: F", 450,280);
         text("Stack: ",750,250);
         text("Visited: A, B, D, C, E, F",750,280);
     }
@@ -227,7 +276,7 @@ function show(){
     rect(700,150,80,40,5);
     noStroke();
     fill(0);
-    if(stage!=12){
+    if(stage!=18){
         text("Next",700,150);
     }else{
         text("Restart",700,150);
@@ -239,7 +288,7 @@ function show(){
 
 function mousePressed(){
     if(mouseX<=740 && mouseX>=660 && mouseY<=170 && mouseY>=130){
-        if(stage!=12){
+        if(stage!=18){
             stage++;
         }else{
             stage=0;
