@@ -116,27 +116,27 @@ function show(){
     line(850,100,790,200);
     line(850,100,910,200); 
     line(880,150,850,200);
-    if(stage>=9){
+    if(stage>=17){
         fill(196,64,64);
+    }
+    circle(790,200,30);
+    if(stage>=15){
+        fill(196,64,64);
+    }
+    circle(820,150,30);
+    if(stage>=13){
+        fill(196, 64, 64);
+    }
+    circle(850,200,30);
+    if(stage>=11){
+        fill(196, 64, 64);
     }
     circle(910,200,30);
     if(stage>=7){
-        fill(196,64,64);
-    }
-    circle(850,200,30);
-    if(stage>=6){
         fill(196, 64, 64);
     }
     circle(880,150,30);
     if(stage>=3){
-        fill(196, 64, 64);
-    }
-    circle(790,200,30);
-    if(stage>=2){
-        fill(196, 64, 64);
-    }
-    circle(820,150,30);
-    if(stage>=1){
         fill(196, 64, 64);
     }
     circle(850,100,30);
@@ -156,116 +156,135 @@ function show(){
         text("Queue: ",450,230);
         text("Visited: ",450,255);
         text("Node X: ", 450,280);
-        text("Stack: ",750,250);
-        text("Visited: ",750,280);
+        text("Stack: ",750,230);
+        text("Visited: ",750,255);
+        text("Node X: ",750,280);
     } else if(stage==1){
         text("Queue: A",450,230);
         text("Visited: A",450,255);
         text("Node X: ", 450,280);
-        text("Stack: A",750,250);
-        text("Visited: A",750,280);
+        text("Stack: A",750,230);
+        text("Visited: ",750,255);
+        text("Node X: ",750,280);
     } else if(stage==2){
         text("Queue: ",450,230);
         text("Visited: A",450,255);
         text("Node X: ", 450,280);
-        text("Stack: A, B",750,250);
-        text("Visited: A, B",750,280);
+        text("Stack: ",750,230);
+        text("Visited: ",750,255);
+        text("Node X: ",750,280);
     } else if(stage==3){
         text("Queue: ",450,230);
         text("Visited: A",450,255);
         text("Node X: A", 450,280);
-        text("Stack: A, B, D",750,250);
-        text("Visited: A, B, D",750,280);
+        text("Stack: ",750,230);
+        text("Visited: A",750,255);
+        text("Node X: A",750,280);
     } else if(stage==4){
         text("Queue: B",450,230);
         text("Visited: A, B",450,255);
         text("Node X: A", 450,280);
-        text("Stack: A, B",750,250);
-        text("Visited: A, B, D",750,280);
+        text("Stack: B",750,230);
+        text("Visited: A",750,255);
+        text("Node X: A",750,280);
     } else if(stage==5){
         text("Queue: B, C",450,230);
         text("Visited: A, B, C",450,255);
         text("Node X: A", 450,280);
-        text("Stack: A",750,250);
-        text("Visited: A, B, D",750,280);
+        text("Stack: B, C",750,230);
+        text("Visited: A",750,255);
+        text("Node X: A",750,280);
     } else if(stage==6){
         text("Queue: C",450,230);
         text("Visited: A, B, C",450,255);
         text("Node X: A", 450,280);
-        text("Stack: A, C",750,250);
-        text("Visited: A, B, D, C",750,280);
+        text("Stack: B",750,230);
+        text("Visited: A",750,255);
+        text("Node X: A",750,280);
     } else if(stage==7){
         text("Queue: C",450,230);
         text("Visited: A, B, C",450,255);
         text("Node X: B", 450,280);
-        text("Stack: A, C, E",750,250);
-        text("Visited: A, B, D, C, E",750,280);
+        text("Stack: B",750,230);
+        text("Visited: A, C",750,255);
+        text("Node X: C",750,280);
     } else if(stage==8){
         text("Queue: C, D",450,230);
         text("Visited: A, B, C, D",450,255);
         text("Node X: B", 450,280);
-        text("Stack: A, C",750,250);
-        text("Visited: A, B, D, C, E",750,280);
+        text("Stack: B, E",750,230);
+        text("Visited: A, C",750,255);
+        text("Node X: C",750,280);
     } else if(stage==9){
         text("Queue: D",450,230);
         text("Visited: A, B, C, D",450,255);
         text("Node X: B", 450,280);
-        text("Stack: A, C, F",750,250);
-        text("Visited: A, B, D, C, E, F",750,280);
+        text("Stack: B, E, F",750,230);
+        text("Visited: A, C",750,255);
+        text("Node X: C",750,280);
     } else if(stage==10){
         text("Queue: D",450,230);
         text("Visited: A, B, C, D",450,255);
         text("Node X: C", 450,280);
-        text("Stack: A, C",750,250);
-        text("Visited: A, B, D, C, E, F",750,280);
+        text("Stack: B, E",750,230);
+        text("Visited: A, C",750,255);
+        text("Node X: C",750,280);
     } else if(stage==11){
         text("Queue: D, E",450,230);
         text("Visited: A, B, C, D, E",450,255);
         text("Node X: C", 450,280);
-        text("Stack: A",750,250);
-        text("Visited: A, B, D, C, E, F",750,280);
+        text("Stack: B, E",750,230);
+        text("Visited: A, C, F",750,255);
+        text("Node X: F",750,280);
     } else if(stage==12){
         text("Queue: D, E, F",450,230);
         text("Visited: A, B, C, D, E, F",450,255);
         text("Node X: C", 450,280);
-        text("Stack: ",750,250);
-        text("Visited: A, B, D, C, E, F",750,280);
+        text("Stack: B",750,230);
+        text("Visited: A, C, F",750,255);
+        text("Node X: F",750,280);
     } else if(stage==13){
         text("Queue: E, F",450,230);
         text("Visited: A, B, C, D, E, F",450,255);
         text("Node X: C", 450,280);
-        text("Stack: ",750,250);
-        text("Visited: A, B, D, C, E, F",750,280);
+        text("Stack: B",750,230);
+        text("Visited: A, C, F, E",750,255);
+        text("Node X: E",750,280);
     } else if(stage==14){
         text("Queue: E, F",450,230);
         text("Visited: A, B, C, D, E, F",450,255);
         text("Node X: D", 450,280);
-        text("Stack: ",750,250);
-        text("Visited: A, B, D, C, E, F",750,280);
+        text("Stack: ",750,230);
+        text("Visited: A, C, F, E",750,255);
+        text("Node X: E",750,280);
     } else if(stage==15){
         text("Queue: F",450,230);
         text("Visited: A, B, C, D, E, F",450,255);
         text("Node X: D", 450,280);
-        text("Stack: ",750,250);
-        text("Visited: A, B, D, C, E, F",750,280);
+        text("Stack: ",750,230);
+        text("Visited: A, C, F, E, B",750,255);
+        text("Node X: B",750,280);
     } else if(stage==16){
         text("Queue: F",450,230);
         text("Visited: A, B, C, D, E, F",450,255);
         text("Node X: E", 450,280);
-        text("Stack: ",750,250);
-        text("Visited: A, B, D, C, E, F",750,280);
+        text("Stack: D",750,230);
+        text("Visited: A, C, F, E, B",750,255);
+        text("Node X: B",750,280);
     } else if(stage==17){
         text("Queue: ",450,230);
         text("Visited: A, B, C, D, E, F",450,255);
         text("Node X: E", 450,280);
-        text("Stack: ",750,250);
-        text("Visited: A, B, D, C, E, F",750,280);
+        text("Stack: ",750,230);
+        text("Visited: A, C, F, E, B",750,255);
+        text("Node X: B",750,280);
     } else if(stage==18){
         text("Queue: ",450,230);
         text("Visited: A, B, C, D, E, F",450,255);
         text("Node X: F", 450,280);
-        text("Stack: ",750,250);
-        text("Visited: A, B, D, C, E, F",750,280);
+        text("Stack: ",750,230);
+        text("Visited: A, C, F, E, B, D",750,255);
+        text("Node X: D",750,280);
     }
     textAlign(CENTER,CENTER);
     stroke(0);
