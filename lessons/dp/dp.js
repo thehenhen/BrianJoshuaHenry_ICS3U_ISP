@@ -12,23 +12,18 @@ let keywordColor = "#DA2828";
 let hoverColor = "#2CEA90";
 let defaultTextColor = "#000000";
 
-let rootCellColorQuery = "#59DC33";
-let affectedCellColorQuery = "#93FA75";
-let rootCellColorUpdate = "#DA2828";
-let affectedCellColorUpdate = "#EA7777";
+let renderedDP = false;
+let items = [
+    [0, 0],
+    [50, 1],
+    [24, 2],
+    [70, 4]
+];
 
-//true = querying mode, false = updating mode
-let mode = true;
-let sliderX = 890;
+let dp = new Array(5).fill(0).map(() => new Array(5).fill(0));
 
-//visual demonstration
-let locked = false;
-let L = 0;
-let R = 0;
-
-//array for storing all affected nodes
-let affectedNodes = []
-let rootNodes = []
+let selectedItem = 0;
+let selectedWeight = 0;
 
 //lesson part
 function setup(){
@@ -41,11 +36,20 @@ function setup(){
 }
 
 function draw(){
+    //for the first iteration, will compute all values in rendered DP
+    if (!renderedDP){
+        calculateDP();
+        renderedDP = true;
+    }
+
     //background
+    rectMode(CENTER);
+    noFill();
     background(230);
 
     //draws the border
     strokeWeight(5);
+    stroke(0);
     rect(500, 275, 995, 545);
     strokeWeight(1);
 
@@ -62,217 +66,122 @@ function draw(){
 
     //feature descriptions
     textSize(20);
-    text("- Can make point updates and range queries", 25, 95);
-    text("- Used for sum, min/max, and other ranges", 25, 145);
-    text("- Takes O(log N) per update / query", 25, 195);
-    text("- Overall O(N log N) memory for an array of size N", 25, 245);
+    text("- Optimization technique for choosing best options", 25, 95);
+    text("- Stores previous results to avoid re-calculating", 25, 145);
+    text("- Considers all possible positions as ", 25, 195);
+    text("- Considers                   from a state to its neighbors", 25, 245);
 
-    //special word
-    fill(color(defaultTextColor));
+    //special words
+    rectMode(CORNER);
+    if (collidePointRect(mouseX, mouseY, 335, 185, 52, 20)) fill(hoverColor);
+    else fill(keywordColor);
+    text("states", 335, 195);
+
+    if (collidePointRect(mouseX, mouseY, 125, 235, 90, 20)) fill(hoverColor);
+    else fill(keywordColor);
+    text("transitions", 125, 245);
 
     //how it works
-    text("- Represented as a", 25, 315);
-    text("- Every node represents an interval within the array", 25, 365); 
-    text("- Other than leaves, nodes split their interval to their children", 25, 415);
-    text("- When querying a range, represents it as <= log N nodes of the tree", 25, 465);
-    text("- When updating a point, moves up the tree, updating each interval that contains it", 25, 515);
+    fill(defaultTextColor);
+    text("- Uses one of two approaches:                   or", 25, 315);
+    text("- Solves simpler                      to build the answer for the main problem", 25, 365);
+    text("- Considers all transitions from a state, and picks the best value", 25, 415); 
+    text("- The \"best value\" could be min or max, but with respect to the value gained, too", 25, 465);
+    text("- For instance, taking an item in                       would add to the value, which should be considered", 25, 515);
 
     //special word
-    if (collidePointRect(mouseX, mouseY, 187, 305, 178, 20)) fill(color(hoverColor));
-    else fill(color(keywordColor));
-    text("complete binary tree", 187, 315);
-    noFill();
+    rectMode(CORNER);
+    if (collidePointRect(mouseX, mouseY, 287, 305, 92, 20)) fill(hoverColor);
+    else fill(keywordColor);
+    text("bottom-up", 287, 315);
 
-    textSize(20);
-    textAlign(CENTER);
-    //switch for changing between modes
-    if (mode){
-        strokeWeight(1);
-        stroke(0);
-        //drawing the base slider
-        fill(rootCellColorQuery);
-        rect(870, 50, 80, 40, 20);
+    if (collidePointRect(mouseX, mouseY, 405, 305, 82, 20)) fill(hoverColor);
+    else fill(keywordColor);
+    text("top-down", 405, 315);
 
-        //changing the x coordinate if we need to
-        if (sliderX < 888) sliderX += 3;
+    if (collidePointRect(mouseX, mouseY, 165, 355, 110, 20)) fill(hoverColor);
+    else fill(keywordColor);
+    text("subproblems", 165, 365);
 
-        //drawing the ball inside
-        if (collidePointRect(mouseX, mouseY, 830, 30, 80, 40, 20)) fill(rootCellColorUpdate);
-        else fill(defaultTextColor);
+    if (collidePointRect(mouseX, mouseY, 301, 505, 112, 20)) fill(hoverColor);
+    else fill(keywordColor);
+    text("0-1 knapsack", 301, 515);
 
-        ellipse(sliderX, 50, 30, 30);
-
-        //drawing the text
-        fill(rootCellColorQuery);
-        noStroke();
-        text("Query", 950, 50);
-    } else {
-        strokeWeight(1);
-        stroke(0);
-        //drawing the base slider
-        fill(rootCellColorUpdate);
-        rect(870, 50, 80, 40, 20);
-
-        //changing the x coordinate if we need to
-        if (sliderX > 851) sliderX -= 3;
-
-        //drawing the ball inside
-        if (collidePointRect(mouseX, mouseY, 830, 30, 80, 40, 20)) fill(rootCellColorQuery);
-        else fill(defaultTextColor);
-
-        ellipse(sliderX, 50, 30, 30);
-
-        //drawing the text
-        fill(rootCellColorUpdate);
-        noStroke();
-        text("Update", 950, 50);
-    }
-    textAlign(CORNER);
-
-    //visual demonstration
-    textSize(20);
-    textAlign(CENTER, CENTER);
-    noFill();
-
-
-    //calculates the range here
-    let leftBox = min(L, R);
-    let rightBox = max(L, R);
-
-    //coloring the boxes within range
-    for (i = 1; i <= 8; i++){
-        strokeWeight(1);
-        stroke(0);
-
-        //querying
-        if (mode){
-            if (leftBox <= i && i <= rightBox) fill(rootCellColorQuery);
-            else noFill();
-        } 
-        //updating
-        else {
-            if (leftBox <= i && i <= rightBox) fill(rootCellColorUpdate);
-            else noFill();
-        }
-        
-
-        rect(450 + (i * 50), 110, 50, 50);
-        fill(defaultTextColor);
-        noStroke();
-        text(i, 450 + (i * 50), 110);
-    }
-
-    //renders the tree - each node is a rectangle that shows the interval
     rectMode(CENTER);
-    stroke(0);
-    strokeWeight(5);
+    textAlign(CENTER, CENTER);
     textSize(15);
 
-    affectedNodes = [];
-    rootNodes = [];
+    //visual demonstration - figures out which item is being selected
+    selectedItem = 0;
+    selectedWeight = 0;
 
-    checkTree(1, 1, 8, 4, leftBox, rightBox);
-    buildTree(1, 320, 800, 4);
-
-    noFill();
-}
-
-//function for coloring the tree
-function checkTree(root, lt, rt, level, queriedL, queriedR){
-    //in the interval
-    if (queriedL <= lt && rt <= queriedR){
-        rootNodes.push(root);
-        return true;
-    } else {
-        //should we recurse?
-        if (queriedR < lt || rt < queriedL) return false;
-
-        //getting children values
-        leftChild = checkTree(root * 2, lt, floor((lt + rt) / 2), level - 1, queriedL, queriedR);
-        let localLeftChild = leftChild;
-        rightChild = checkTree(root * 2 + 1, floor((lt + rt) / 2) + 1, rt, level - 1, queriedL, queriedR);
-        let localRightChild = rightChild;
-
-        //this node is along the way
-        if (leftChild || rightChild){
-            affectedNodes.push(root);
+    for (i = 1; i <= 3; i++){
+        for (j = 1; j <= 4; j++){
+            if (collidePointRect(mouseX, mouseY, 600 + j * 50, 125 + 50 * i, 50, 50)){
+                selectedItem = i;
+                selectedWeight = j;
+            }
         }
-
-        return leftChild || rightChild;
     }
-}
-
-//lt and rt are the left and right X coordinates - the function returns a the x-coordinate for its top center
-function buildTree(root, lt, rt, level){
-    mid = (lt + rt) / 2;
-    boxY = 400 - 60  * level;
-
-    //local versions of the parameters, since javascript function parameters aren't local
-    let localRoot = root, localLt = lt, localRt = rt, localLevel = level, localMid = mid, localBoxY = boxY;
-
-    strokeWeight(1);
-    stroke(0);
-
-    //draws the node
-    if (mode){
-        if (rootNodes.includes(localRoot)) fill(rootCellColorQuery);
-        else if (affectedNodes.includes(localRoot)) fill(affectedCellColorQuery);
-        else fill(0);
-    } else {
-        if (rootNodes.includes(localRoot) || affectedNodes.includes(localRoot)) fill(rootCellColorUpdate);
-        else fill(defaultTextColor);
-    }
-
-    rect(mid + 150, boxY + 20, 50, 25);
-
-    //writes the interval
-    if (mode){
-        if (rootNodes.includes(localRoot)) fill(rootCellColorQuery);
-        else fill(0);
-    } else {
-        fill(0);    
-    }
-
-    let leftIndex = (localLt - 260) / 60, rightIndex = ((localRt - localLt) / 60) + leftIndex - 1;
-    noStroke();
-    text(`[${leftIndex}, ${rightIndex}]`, mid + 150, boxY + 50);
     
-    //checks for recursion to children
-    if (level == 1){
-        //leaf node
-        return (localLt + localRt) / 2;
+    //draws all the items
+    for (i = 1; i <= 3; i++){
+        stroke(0);
+        strokeWeight(1);
+
+        if (i == selectedItem) fill(hoverColor);
+        else noFill();
+
+        rect(400 + i * 150, 100, 125, 50);
+
+        noStroke();
+        fill(defaultTextColor);
+        //writes the weight and value
+        text(`Value: ${items[i][0]}`, 400 + i * 150, 90);
+        text(`Weight: ${items[i][1]}`, 400 + i * 150, 110);
     }
 
-    //has children to split to
-    leftChild = buildTree(root * 2, localLt, localMid, localLevel - 1);
-    let localLeftChild = leftChild
-    rightChild = buildTree(root * 2 + 1, localMid, localRt, localLevel - 1);
-    let localRightChild = rightChild;
+    rectMode(CORNER);
 
-    strokeWeight(1);
-    stroke(0);
-    line(localMid + 125, localBoxY + 32.5, localLeftChild + 150, localBoxY + 67.5);
-    line(localMid + 175, localBoxY + 32.5, localRightChild + 150, localBoxY + 67.5);
+    //drawing the grid
+    for (i = 1; i <= 3; i++){
+        for (j = 1; j <= 4; j++){
+            stroke(0);
+            strokeWeight(1);
+        
+            if (i == selectedItem && j == selectedWeight) fill(hoverColor);
+            else noFill();
+            rect(600 + 50 * j, 125 + 50 * i, 50, 50);
 
-    return (localLt + localRt) / 2;
+            noStroke();
+            fill(defaultTextColor);
+            //rendering the dp value
+            text(dp[i][j], 625 + 50 * j, 150 + 50 * i);
+        }
+    }
+
+    //labels
+    stroke(1);
+    text("Weight Left", 750, 145);
+
+    for (i = 1; i <= 3; i++){
+        text(`Item ${i}:`, 600, 150 + 50 * i);
+    }
+
+    for (i = 1; i <= 4; i++){
+        text(i, 625 + i * 50, 165);
+    }
+
+    //text about the 
 }
 
 function mouseClicked(){
-    //popups for special words
-    if (collidePointRect(mouseX, mouseY, 187, 305, 178, 20)){
-        alert("A completely binary tree is a special type of binary tree of height H in which every node that has a height < H has exactly two children. That is, a completely binary tree of height H has exactly 2^H - 1 nodes.");
-    }
-
-    if (collidePointRect(mouseX, mouseY, 232, 333, 32, 20)){
-        alert("The Least Significant Bit (LSB) of a number is the active bit with the smallest value in that number. For example, the LSB of 14 (1110) is the 2nd bit, with value 2.");
-    }
-
-    //slider
-    if (collidePointRect(mouseX, mouseY, 830, 30, 80, 40, 20)){
-        mode = !mode;
-        L = 0;
-        R = 0;
-    }
+    if (collidePointRect(mouseX, mouseY, 335, 185, 52, 20)) alert("States can be described as the tuple combination of all relevant values of that position. For example, state[i][j] could mean that you are considering the ith item with j weights left to spend in 0-1 knapsack.");
+    if (collidePointRect(mouseX, mouseY, 125, 235, 90, 20)) alert("Transitions are the moves that lead from one state to another. For example, at state[i][j], you could either take the current item and go to state[i + 1][j - weight] or you can pass it and go to state[i + 1][j]. Think of them as edges in a directed graph.");
+    if (collidePointRect(mouseX, mouseY, 287, 305, 92, 20)) alert("The bottom-up approach involves starting with the subproblems first, and iterating through states in increasing degrees. It's like saying: \"I will graduate high school, get a master's degree in astronomy, then become an astronaut at NASA.\"");
+    if (collidePointRect(mouseX, mouseY, 405, 305, 82, 20)) alert("The top-down approach involves recursively finding the subproblems, starting with the main problem first and moving down. It's like saying: \"To become an astronaut at NASA, I need a master's degree in astronomy, which means I need to graduate high school.\"");
+    if (collidePointRect(mouseX, mouseY, 165, 355, 110, 20)) alert("Subproblems are smaller samples within a larger problem. For instance, if there were 5 weights for a knapsack problem, a subproblem could just consider the first four knapsacks, and use that to solve for the fifth one.");
+    if (collidePointRect(mouseX, mouseY, 301, 505, 112, 20)) alert("The 0-1 knapsack problem is a very common term used to describe a simple dynamic programming problem. Basically, imagine there are some items that each have a value and a weight. You have a knapsack, but the knapsack can only hold a certain amount of weight. The problem is to find the maximum sum of the values that you put in the knapsack.");
 }
 
 //if the initial click is within one of the squares, sets that to be the L value
@@ -280,10 +189,18 @@ function mousePressed(){
 
 }
 
-function mouseDragged(){
+function calculateDP(){
+    for (let i = 3; i >= 1; i--){
+        for (let j = 1; j <= 4; j++){
+            dp[i][j] = dp[i + 1][j];
+
+            let cost = items[i][1];
+            //can take
+            if (j >= cost){
+                dp[i][j] = max(dp[i][j], dp[i + 1][j - cost] + items[i][0]);
+            }
+
+            console.log(dp[i][j]);
+        }
+    }
 }
-
-function mouseReleased(){
-
-}
-
