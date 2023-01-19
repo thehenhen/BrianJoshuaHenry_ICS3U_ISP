@@ -12,7 +12,7 @@ let stage=0;
 function setup(){
     var cnv = createCanvas(1000, 550);
     var x = (windowWidth - width) / 2;
-    var y = (windowHeight - height) / 2;
+    var y = (windowHeight - height) / 2 + 50;
     cnv.position(x, y);
     rectMode(CENTER);
 }
