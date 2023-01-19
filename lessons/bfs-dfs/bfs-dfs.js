@@ -42,22 +42,24 @@ function description(){
 
     //feature descriptions
     textSize(20);
-    text("- Two methods of navigating through a tree", 25, 85);
+    text("- Two methods of navigating through a graph", 25, 85);
     text("- BFS is used to find the shortest path", 25, 135);
-    text("- DFS is used to scan all possible paths", 25, 185);
+    text("- DFS keeps going down a path as far as possible", 25, 185);
 
 
     //how it works
     textSize(25);
     text("- Breadth-First Search", 25, 285);
     textSize(20);
-    text("- Use a queue, each vertex that is visited is added to the queue", 65, 325);
-    text("- Then, travel to each adjacent vertex and repeat", 65, 365);
+    text("- Push the root node into the queue", 65, 315);
+    text("- While the queue is not empty, pop the top node X from the queue", 65, 345);
+    text("- Mark X's unmarked neighbors, then push them into the queue and repeat", 65, 375);
     textSize(25);
-    text("- Depth-First Search", 25, 405);
+    text("- Depth-First Search", 25, 415);
     textSize(20);
-    text("- Use a stack, pushing vertices that are visited", 65, 445);
-    text("- Travel to adjacent vertices, popping vertices that have no adjacent vertices", 65, 485);
+    text("- Push the root node into the stack", 65, 445);
+    text("- While the stack is not empty, pop the top node X from the stack", 65, 475);
+    text("- Mark X as visited, then push its neighbors into the stack and repeat", 65, 505);
 }
 
 function show(){
