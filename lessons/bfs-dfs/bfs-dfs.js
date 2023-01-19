@@ -51,7 +51,7 @@ function description(){
     textSize(25);
     text("- Breadth-First Search", 25, 285);
     textSize(20);
-    text("- Push the root node into the queue", 65, 315);
+    text("- Push the root node into the queue and mark it", 65, 315);
     text("- While the queue is not empty, pop the top node X from the queue", 65, 345);
     text("- Mark X's unmarked neighbors, then push them into the queue and repeat", 65, 375);
     textSize(25);
