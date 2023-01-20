@@ -194,17 +194,39 @@ function draw(){
     if (selectedItem != -1){
         //it is the last item
         if (selectedItem == 3){
-            //can afford
-            if (selectedWeight >= items[selectedItem][1]){
-                possibleChoices.push(`We cannot afford this item, so the total cost at item #${selectedItem}`);
+            //can't afford
+            if (selectedWeight < items[selectedItem][1]){
+                possibleChoices.push(`We cannot afford the last item,`);
+                possibleChoices.push(`so the maximum possible cost is 0.`);
             } else {
-
+                possibleChoices.push(`We can afford the last item,`);
+                possibleChoices.push(`so the maximum possible cost is ${dp[selectedItem][selectedWeight]}.`);
             }
         }
         //it has a "next" item
         else {
+            //not buying this one
 
+            possibleChoices.push(`If we do not buy, we can get ${dp[selectedItem + 1][selectedWeight]}.`);
+            //can't afford
+            if (selectedWeight < items[selectedItem][1]){
+                possibleChoices.push(`We cannot afford this item,`);
+                possibleChoices.push(`so the maximum possible cost is ${dp[selectedItem + 1][selectedWeight]}.`);
+            } else {
+                possibleChoices.push(`We can afford this item though,`);
+                possibleChoices.push(`which would give us ${dp[selectedItem + 1][selectedWeight - items[selectedItem][1]]} + ${items[selectedItem][0]} = ${dp[selectedItem + 1][selectedWeight - items[selectedItem][1]] + items[selectedItem][0]},`);
+                possibleChoices.push(`since it sends us to dp[${selectedItem + 1}][${selectedWeight - items[selectedItem][1]}].`);
+
+                //answer
+                possibleChoices.push(`Overall, the maximum sum possible is ${dp[selectedItem][selectedWeight]}.`);
+            }
         }
+    }
+
+    //textWrap(WORD);
+
+    for (i = 0; i < possibleChoices.length; i++){
+        text(possibleChoices[i], 750, 340 + i * 20);
     }
 }
 
