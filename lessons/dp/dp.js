@@ -10,6 +10,7 @@ function closeNav() {
 //variable declaration
 let keywordColor = "#DA2828";
 let hoverColor = "#2CEA90";
+let lightHoverColor = "#8FDBB7";
 let defaultTextColor = "#000000";
 
 let renderedDP = false;
@@ -112,11 +113,14 @@ function draw(){
     textSize(15);
 
     //visual demonstration - figures out which item is being selected
-    selectedItem = 0;
-    selectedWeight = 0;
+    selectedItem = -1;
+    selectedWeight = -1;
+
+    //stores the states that can be reached from the selected one
+    let affectedStates = [];
 
     for (i = 1; i <= 3; i++){
-        for (j = 1; j <= 4; j++){
+        for (j = 0; j <= 4; j++){
             if (collidePointRect(mouseX, mouseY, 600 + j * 50, 125 + 50 * i, 50, 50)){
                 selectedItem = i;
                 selectedWeight = j;
@@ -145,12 +149,23 @@ function draw(){
 
     //drawing the grid
     for (i = 1; i <= 3; i++){
-        for (j = 1; j <= 4; j++){
+        for (j = 0; j <= 4; j++){
             stroke(0);
             strokeWeight(1);
+
+            //checking if affectedStates includes this one
+            flag = false;
+            for (thisState in affectedStates){
+                if (thisState[0] == j && thisState[1] == i){
+                    flag = true;
+                    console.log("jogothewarrior");
+                }
+            }
         
             if (i == selectedItem && j == selectedWeight) fill(hoverColor);
+            else if (flag) fill(lightHoverColor);
             else noFill();
+
             rect(600 + 50 * j, 125 + 50 * i, 50, 50);
 
             noStroke();
@@ -162,17 +177,35 @@ function draw(){
 
     //labels
     stroke(1);
-    text("Weight Left", 750, 145);
+    text("Weight Left", 725, 145);
 
     for (i = 1; i <= 3; i++){
-        text(`Item ${i}:`, 600, 150 + 50 * i);
+        text(`Item ${i}:`, 550, 150 + 50 * i);
     }
 
-    for (i = 1; i <= 4; i++){
+    for (i = 0; i <= 4; i++){
         text(i, 625 + i * 50, 165);
     }
 
-    //text about the 
+    //text about the possible choices
+    let possibleChoices = [];
+
+    //an item is selected
+    if (selectedItem != -1){
+        //it is the last item
+        if (selectedItem == 3){
+            //can afford
+            if (selectedWeight >= items[selectedItem][1]){
+                possibleChoices.push(`We cannot afford this item, so the total cost at item #${selectedItem}`);
+            } else {
+
+            }
+        }
+        //it has a "next" item
+        else {
+
+        }
+    }
 }
 
 function mouseClicked(){
