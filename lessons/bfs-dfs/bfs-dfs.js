@@ -314,5 +314,4 @@ function mousePressed(){
         }
         
     }
-    console.log(stage);
 }
