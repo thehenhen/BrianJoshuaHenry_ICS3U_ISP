@@ -11,13 +11,8 @@ function closeNav() {
 function setup(){
     var cnv = createCanvas(1000, 550);
     var x = (windowWidth - width) / 2;
-<<<<<<< HEAD
     var y = (windowHeight - height) / 2;
     cnv.position(x, y+50);
-=======
-    var y = (windowHeight - height) / 2 + 50;
-    cnv.position(x, y);
->>>>>>> a78ed0641195ca81845d42c2c26fce771e6dffb0
     background(205);
     rectMode(CENTER);
 }
