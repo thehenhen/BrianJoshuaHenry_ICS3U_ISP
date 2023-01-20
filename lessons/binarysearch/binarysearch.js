@@ -223,12 +223,12 @@ function setup(){
     var cnv = createCanvas(1000, 550);
     var x = (windowWidth - width) / 2;
     var y = (windowHeight - height) / 2 + 50;
-    cnv.position(x, y);
     background(0);
     rectMode(CENTER);
 
     textAlign(CENTER,CENTER);
     textSize(20);
+    cnv.parent('sketch-holder');
     // 0 Start screen
     // 1 Steps: 
     //   start at middle
