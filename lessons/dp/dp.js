@@ -10,6 +10,7 @@ function closeNav() {
 //variable declaration
 let keywordColor = "#DA2828";
 let hoverColor = "#2CEA90";
+let lightHoverColor = "#8FDBB7";
 let defaultTextColor = "#000000";
 
 let renderedDP = false;
@@ -30,9 +31,9 @@ function setup(){
     var cnv = createCanvas(1000, 550);
     var x = (windowWidth - width) / 2;
     var y = (windowHeight - height) / 2 + 50;
-    cnv.position(x, y);
     background(0);
     rectMode(CENTER);
+    cnv.parent('sketch-holder');
 }
 
 function draw(){
@@ -62,7 +63,7 @@ function draw(){
 
     text("Features", 25, 50);
     text("How it Works", 25, 280);
-    text("Visual Demonstration", 525, 50);
+    text("Visual Demonstration", 615, 50);
 
     //feature descriptions
     textSize(20);
@@ -86,7 +87,7 @@ function draw(){
     text("- Uses one of two approaches:                   or", 25, 315);
     text("- Solves simpler                      to build the answer for the main problem", 25, 365);
     text("- Considers all transitions from a state, and picks the best value", 25, 415); 
-    text("- The \"best value\" could be min or max, but with respect to the value gained, too", 25, 465);
+    text("- The \"best value\" comes from the transitions, but with respect to the value gained at the current position, too", 25, 465);
     text("- For instance, taking an item in                       would add to the value, which should be considered", 25, 515);
 
     //special word
@@ -112,12 +113,15 @@ function draw(){
     textSize(15);
 
     //visual demonstration - figures out which item is being selected
-    selectedItem = 0;
-    selectedWeight = 0;
+    selectedItem = -1;
+    selectedWeight = -1;
+
+    //stores the states that can be reached from the selected one
+    let affectedStates = [];
 
     for (i = 1; i <= 3; i++){
-        for (j = 1; j <= 4; j++){
-            if (collidePointRect(mouseX, mouseY, 600 + j * 50, 125 + 50 * i, 50, 50)){
+        for (j = 0; j <= 4; j++){
+            if (collidePointRect(mouseX, mouseY, 670 + j * 50, 125 + 50 * i, 50, 50)){
                 selectedItem = i;
                 selectedWeight = j;
             }
@@ -132,47 +136,98 @@ function draw(){
         if (i == selectedItem) fill(hoverColor);
         else noFill();
 
-        rect(400 + i * 150, 100, 125, 50);
+        rect(470 + i * 150, 100, 125, 50);
 
         noStroke();
         fill(defaultTextColor);
         //writes the weight and value
-        text(`Value: ${items[i][0]}`, 400 + i * 150, 90);
-        text(`Weight: ${items[i][1]}`, 400 + i * 150, 110);
+        text(`Value: ${items[i][0]}`, 470 + i * 150, 90);
+        text(`Weight: ${items[i][1]}`, 470 + i * 150, 110);
     }
 
     rectMode(CORNER);
 
     //drawing the grid
     for (i = 1; i <= 3; i++){
-        for (j = 1; j <= 4; j++){
+        for (j = 0; j <= 4; j++){
             stroke(0);
             strokeWeight(1);
+
+            //checking if affectedStates includes this one
+            flag = false;
+            for (thisState in affectedStates){
+                if (thisState[0] == j && thisState[1] == i){
+                    flag = true;
+                    console.log("jogothewarrior");
+                }
+            }
         
             if (i == selectedItem && j == selectedWeight) fill(hoverColor);
+            else if (flag) fill(lightHoverColor);
             else noFill();
-            rect(600 + 50 * j, 125 + 50 * i, 50, 50);
+
+            rect(670 + 50 * j, 125 + 50 * i, 50, 50);
 
             noStroke();
             fill(defaultTextColor);
             //rendering the dp value
-            text(dp[i][j], 625 + 50 * j, 150 + 50 * i);
+            text(dp[i][j], 695 + 50 * j, 150 + 50 * i);
         }
     }
 
     //labels
     stroke(1);
-    text("Weight Left", 750, 145);
+    text("Weight Left", 795, 145);
 
     for (i = 1; i <= 3; i++){
-        text(`Item ${i}:`, 600, 150 + 50 * i);
+        text(`Item ${i}:`, 620, 150 + 50 * i);
     }
 
-    for (i = 1; i <= 4; i++){
-        text(i, 625 + i * 50, 165);
+    for (i = 0; i <= 4; i++){
+        text(i, 695 + i * 50, 165);
     }
 
-    //text about the 
+    //text about the possible choices
+    let possibleChoices = [];
+
+    //an item is selected
+    if (selectedItem != -1){
+        //it is the last item
+        if (selectedItem == 3){
+            //can't afford
+            if (selectedWeight < items[selectedItem][1]){
+                possibleChoices.push(`We cannot afford the last item,`);
+                possibleChoices.push(`so the maximum possible cost is 0.`);
+            } else {
+                possibleChoices.push(`We can afford the last item,`);
+                possibleChoices.push(`so the maximum possible cost is ${dp[selectedItem][selectedWeight]}.`);
+            }
+        }
+        //it has a "next" item
+        else {
+            //not buying this one
+
+            possibleChoices.push(`If we do not buy, we can get ${dp[selectedItem + 1][selectedWeight]}.`);
+            //can't afford
+            if (selectedWeight < items[selectedItem][1]){
+                possibleChoices.push(`We cannot afford this item,`);
+                possibleChoices.push(`so the maximum possible cost is ${dp[selectedItem + 1][selectedWeight]}.`);
+            } else {
+                possibleChoices.push(`We can afford this item though,`);
+                possibleChoices.push(`which would give us ${dp[selectedItem + 1][selectedWeight - items[selectedItem][1]]} + ${items[selectedItem][0]} = ${dp[selectedItem + 1][selectedWeight - items[selectedItem][1]] + items[selectedItem][0]},`);
+                possibleChoices.push(`since it sends us to dp[${selectedItem + 1}][${selectedWeight - items[selectedItem][1]}].`);
+
+                //answer
+                possibleChoices.push(`Overall, the maximum sum possible is ${dp[selectedItem][selectedWeight]}.`);
+            }
+        }
+    }
+
+    //textWrap(WORD);
+
+    for (i = 0; i < possibleChoices.length; i++){
+        text(possibleChoices[i], 820, 340 + i * 20);
+    }
 }
 
 function mouseClicked(){
