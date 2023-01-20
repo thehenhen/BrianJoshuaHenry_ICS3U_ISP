@@ -141,14 +141,32 @@ function show(){
     }
     
     fill(255);
+    rect(530,230,100,40,5);
     
     if(mouseX<570 && mouseX>480 && mouseY<250 && mouseY>210){
         fill(200);
+        rect(530,230,100,40,5);
     }
-    rect(530,230,100,40,5);
+    
+    
+    if(!clicked2) {
+        fill(255);
+        rect(830,480,150,40,5);
+        if(mouseX<905 && mouseX>755 && mouseY<500 && mouseY>460){
+            fill(200);
+            rect(830,480,150,40,5);
+        }
+
+    }
+    
     fill(0);
     textSize(15);
     text("Push changes",488,230);
+    
+    if(!clicked2){
+    text("Show final array!",778,480);
+    }
+
     textSize(20);
     if(mouseX<680 && mouseX>640 && mouseY<280 && mouseY>240){
         fill(0);
@@ -259,7 +277,7 @@ function mousePressed(){
     if(mouseX<570 && mouseX>480 && mouseY<250 && mouseY>210){
         clicked = !clicked;
     }
-    if(mouseX<900 && mouseX>800 && mouseY<500 && mouseY>400){
+    if(mouseX<895 && mouseX>765 && mouseY<500 && mouseY>460){
         clicked2 = true;
     }
         
