@@ -63,7 +63,7 @@ function draw(){
 
     text("Features", 25, 50);
     text("How it Works", 25, 280);
-    text("Visual Demonstration", 525, 50);
+    text("Visual Demonstration", 615, 50);
 
     //feature descriptions
     textSize(20);
@@ -87,7 +87,7 @@ function draw(){
     text("- Uses one of two approaches:                   or", 25, 315);
     text("- Solves simpler                      to build the answer for the main problem", 25, 365);
     text("- Considers all transitions from a state, and picks the best value", 25, 415); 
-    text("- The \"best value\" could be min or max, but with respect to the value gained, too", 25, 465);
+    text("- The \"best value\" comes from the transitions, but with respect to the value gained at the current position, too", 25, 465);
     text("- For instance, taking an item in                       would add to the value, which should be considered", 25, 515);
 
     //special word
@@ -121,7 +121,7 @@ function draw(){
 
     for (i = 1; i <= 3; i++){
         for (j = 0; j <= 4; j++){
-            if (collidePointRect(mouseX, mouseY, 600 + j * 50, 125 + 50 * i, 50, 50)){
+            if (collidePointRect(mouseX, mouseY, 670 + j * 50, 125 + 50 * i, 50, 50)){
                 selectedItem = i;
                 selectedWeight = j;
             }
@@ -136,13 +136,13 @@ function draw(){
         if (i == selectedItem) fill(hoverColor);
         else noFill();
 
-        rect(400 + i * 150, 100, 125, 50);
+        rect(470 + i * 150, 100, 125, 50);
 
         noStroke();
         fill(defaultTextColor);
         //writes the weight and value
-        text(`Value: ${items[i][0]}`, 400 + i * 150, 90);
-        text(`Weight: ${items[i][1]}`, 400 + i * 150, 110);
+        text(`Value: ${items[i][0]}`, 470 + i * 150, 90);
+        text(`Weight: ${items[i][1]}`, 470 + i * 150, 110);
     }
 
     rectMode(CORNER);
@@ -166,25 +166,25 @@ function draw(){
             else if (flag) fill(lightHoverColor);
             else noFill();
 
-            rect(600 + 50 * j, 125 + 50 * i, 50, 50);
+            rect(670 + 50 * j, 125 + 50 * i, 50, 50);
 
             noStroke();
             fill(defaultTextColor);
             //rendering the dp value
-            text(dp[i][j], 625 + 50 * j, 150 + 50 * i);
+            text(dp[i][j], 695 + 50 * j, 150 + 50 * i);
         }
     }
 
     //labels
     stroke(1);
-    text("Weight Left", 725, 145);
+    text("Weight Left", 795, 145);
 
     for (i = 1; i <= 3; i++){
-        text(`Item ${i}:`, 550, 150 + 50 * i);
+        text(`Item ${i}:`, 620, 150 + 50 * i);
     }
 
     for (i = 0; i <= 4; i++){
-        text(i, 625 + i * 50, 165);
+        text(i, 695 + i * 50, 165);
     }
 
     //text about the possible choices
@@ -226,7 +226,7 @@ function draw(){
     //textWrap(WORD);
 
     for (i = 0; i < possibleChoices.length; i++){
-        text(possibleChoices[i], 750, 340 + i * 20);
+        text(possibleChoices[i], 820, 340 + i * 20);
     }
 }
 
