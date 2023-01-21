@@ -10,3 +10,14 @@ function closeNav(){
 }
 
 let binarysearch = document.getElementById("binary-search")
+
+let slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
