@@ -123,13 +123,16 @@
 }
 
 footer {
-	margin-top: 18.5%;
+	margin-top: 35%;
 	width: 100%;
 	background: #1f3a67ff;
 	color: grey;
 	text-align: center;
 	height: auto;  
 	padding: 50px;
+    
+    left:0;
+    right:0;
 }
 
 
