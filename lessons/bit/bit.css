@@ -1,7 +1,57 @@
-#main {
-    padding: 20px;
-    transition: margin-left .4s;
+* {
     font-family: 'PT Sans';
+    box-sizing: border-box;
+}
+
+#content {
+    margin-left: 1%;
+}
+
+#topnav {
+    background-color: black;
+    overflow: hidden;
+}
+
+#topnav a {
+    font-size: 20px;
+    text-align: center;
+    padding: 14px 16px;
+    color: white;
+}
+
+#topnav a.active {
+    color: black;
+    background-color: white;
+}
+
+#topnav a:hover {
+    background-color: gray;
+}
+
+.home-section {
+    padding: 0px 0px;
+}
+
+
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 40px;
+    height: 300px; 
+  }
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+.pfp {
+    width: 80px;
+    float: right;
+    margin-right:30px;
+    border-radius: 20%;
+    border:5px solid white
 }
 
 .sidenav {
@@ -18,16 +68,23 @@
     
 }
 
-.sidenav a {
+.dropdown-container {
+    display: none;
+    background-color: #000000;
+    padding-left: 8px;
+  }
+
+.sidenav a, .dropdown-btn {
     padding: 7px 7px 7px 32px;
     font-size: 30px;
-    display: block;
-    transition: 0.3s;
-    text-decoration: none;
+    display:block;
+    transition:0.3s;
+    text-decoration:none;
     color: #818181;
+    background-color: black;
 }
 
-.sidenav a:hover {
+.sidenav a:hover, .dropdown-btn:hover {
     color: #D3D3D3;
 }
 
@@ -39,17 +96,28 @@
     position: absolute;
 }
 
-.menubtn {
-    font-size: 30px;
-    cursor: pointer;
+#main {
+    
+    padding: 40px;
+}
+
+#shift {
+    transition:margin-left .4s;
+    padding-top:20px;
+    padding-left:10px;
+}
+
+.menubtn { 
+    font-size:30px;
+    cursor:pointer; 
     padding-top: 10px;
     padding-left: 25px;
     padding-right: 10px;
     margin-bottom: 15px;
-    display: inline-block;
+    display: inline-block;  
     vertical-align: middle;
 }
 
-li {
-    font-size: 20px;
+#lessons {
+    font-size: 8px;
 }

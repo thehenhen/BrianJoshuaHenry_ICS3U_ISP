@@ -14,14 +14,23 @@
 <body>
     <div id="navbar" class="sidenav">
         <a href="javascript:void(0)" class="exit" onclick="closeNav()">&times;</a>
-        <a href="../homepage/home.html">Home</a>
-        <a href="./lessons.html">Lessons</a>
-        <a href="../credits/credits.html">Credits</a>
+        <a href="/homepage/home.html" style="padding-top:60px">Home</a>
+        <a href="/lessons/lessons.html">Menu</a>
+        <button class="dropdown-btn">Lessons  ▼</button>
+        <div class="dropdown-container">
+            <a style="font-size:16px" href="/lessons/bfs-dfs/bfs-dfs.html">Breadth/Depth First Search</a>
+            <a style="font-size:16px" href="/lessons/binarysearch/binarysearch.html">Binary Search</a>
+            <a style="font-size:16px" href="/lessons/bit/bit.html">Binary Indexed Tree</a>
+            <a style="font-size:16px" href="/lessons/dp/dp.html">Dynamic Programming</a>
+            <a style="font-size:16px" href="/lessons/psa/psa.html">Prefix Sum/Diff Array</a>
+            <a style="font-size:16px" href="/lessons/segtree/segtree.html  ">Segment Tree</a>
+        </div>
+        <a href="/credits/credits.html">Credits</a>
     </div>
     
-
+    <div id="shift">
     <span class="menubtn" onclick="openNav()">&#9776;</span>
-    <a href="../homepage/home.html"><img src = "../images/CodeComplexLogo.png" alt="placeholder" style="height:7%; width:7%; display:inline-block; vertical-align: middle;"></a>
+    <a href="../homepage/home.html"><img src = "/images/CodeComplexLogo.png" alt="placeholder" style="height:7%; width:7%; display:inline-block; vertical-align: middle;"></a>
     
     <div id="main">
         <div id="content">
@@ -32,31 +41,77 @@
                     and interactive exercises on the subject!
                 </p>
             </div>
+            
+            <a href="/lessons/bfs-dfs/bfs-dfs.html">
+                <div class="gallery">
+                    <img src="bfs.png"  width="650" height="430">
+                  </a>
+                  <div class="desc">Breadth First Search / Depth First Search</div>
+                </div>
+            </a>
+            
+            <a href="/lessons/binarysearch/binarysearch.html">
+                <div class="gallery">
+                    <img src="binary.png" width="650" height="430">
+                  </a>
+                  <div class="desc">Binary Search</div>
+                </div>
+            </a>
 
-            <table class="buttons">
-                <tr>
-                    <td>
-                        <a href="./binarysearch/binarysearch.html"><button>Binary Search</button></a>
-                    </td>
-                    <td>
-                        <a href="./psa/psa.html"><button>Prefix Sum Array</button></a>
-                    </td>
-                    <td>
-                        <a href="./bfs-dfs/bfs-dfs.html"><button>BFS / DFS</button></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="./segtree/segtree.html"><button>Segment Tree</button></a>
-                    </td>
-                    <td>
-                        <a href="./bit/bit.html"><button>Binary Indexed Tree</button></a>
-                    </td>
-                    <td>
-                        <a href="./dp/dp.html"><button>Dynamic Programming</button></a>
-                    </td>
-                </tr>
-            </table>
+            <a href="/lessons/bit/bit.html">
+                <div class="gallery">
+                    <img src="bit.png" width="650" height="430">
+                  </a>
+                  <div class="desc">Binary Indexed Tree</div>
+                </div>
+            </a>
+
+            <a href="/lessons/dp/dp.html">
+                <div class="gallery">
+                    <img src="dp.png" width="650" height="430">
+                  </a>
+                  <div class="desc">Dynamic Programming</div>
+                </div>
+            </a>
+
+            <a href="/lessons/psa/psa.html">
+                <div class="gallery">
+                    <img src="psa.png" width="650" height="430">
+                  </a>
+                  <div class="desc">Prefix Sum/Difference Array</div>
+                </div>
+            </a>
+
+            <a href="/lessons/segtree/segtree.html">
+                <div class="gallery">
+                    <img src="segtree.png" width="650" height="430">
+                  </a>
+                  <div class="desc">Segment Tree</div>
+                </div>
+            </a>
+              
+              
+
+           
+              
+              
+                
+              
+             
+                
+              
+              
+              
+       
+           
+              
+
+             
+
+            
+            </div>
+        </div>
+
         </div>
     </div>
     <script src="./lessons.js"></script>

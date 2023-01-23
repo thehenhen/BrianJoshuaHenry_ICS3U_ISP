@@ -17,20 +17,36 @@
 <body>
     <div id="navbar" class="sidenav">
         <a href="javascript:void(0)" class="exit" onclick="closeNav()">&times;</a>
-        <a href="../../homepage/home.html">Home</a>
-        <a href="../lessons.html">Lessons</a>
-        <a href="../../credits/credits.html">Credits</a>
+        <a href="/homepage/home.html" style="padding-top:60px">Home</a>
+        <a href="/lessons/lessons.html">Menu</a>
+        <button class="dropdown-btn">Lessons  ▼</button>
+        <div class="dropdown-container">
+            <a style="font-size:16px" href="/lessons/bfs-dfs/bfs-dfs.html">Breadth/Depth First Search</a>
+            <a style="font-size:16px" href="/lessons/binarysearch/binarysearch.html">Binary Search</a>
+            <a style="font-size:16px" href="/lessons/bit/bit.html">Binary Indexed Tree</a>
+            <a style="font-size:16px" href="/lessons/dp/dp.html">Dynamic Programming</a>
+            <a style="font-size:16px" href="/lessons/psa/psa.html">Prefix Sum/Diff Array</a>
+            <a style="font-size:16px" href="/lessons/segtree/segtree.html  ">Segment Tree</a>
+        </div>
+        <a href="/credits/credits.html">Credits</a>
     </div>
     
-
+    <div id="shift">
     <span class="menubtn" onclick="openNav()">&#9776;</span>
-    <a href="../../homepage/home.html"><img src = "../../images/CodeComplexLogo.png" alt="placeholder" style="height:7%; width:7%; display:inline-block; vertical-align: middle;"></a>
+    <a href="../homepage/home.html"><img src = "/images/CodeComplexLogo.png" alt="placeholder" style="height:7%; width:7%; display:inline-block; vertical-align: middle;"></a>
+
     
     <div id="main">
         <h2><b>Binary Search</b></h2>
         <script src="./binarysearch.js"></script>
         <div id="sketch-holder"></div>
-        <h2><b>Links to Articles</b></h2>
+        <h2><b>Links to Articles/Problems</b></h2>
+        <ul style="font-size:30px" style="list-style-type:disc">
+            <li><a style="font-size:30px" href="https://www.geeksforgeeks.org/binary-search/">GeeksForGeeks - Binary Search</a></li>
+            <li><a style="font-size:30px" href="https://dmoj.ca/problem/dmopc16c2p4">DMOJ - Zeros</a></li>
+        </ul>
+
+    </div>
     </div>
 </body>
 </html>
