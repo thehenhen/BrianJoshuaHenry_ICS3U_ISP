@@ -82,7 +82,7 @@ function draw(){
     text("- Continuously subtracts the        for the next cell to", 25, 345); 
     text("- Continuously adds the LSB for the next cell to", 25, 395);
     text("- Can compute prefix sums, prefix min/max, and count inversions", 25, 445);
-    text("- Despite what the name implies, the \"tree\" is actually stored in an array", 25, 495);
+    text("- Despite what the name implies, the \"tree\" is actually stored in an array (BITs are also called \"Fenwick Trees\")", 25, 495);
 
     //special word
     if (collidePointRect(mouseX, mouseY, 270, 333, 32, 20)) fill(color(hoverColor));
