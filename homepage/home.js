@@ -1,3 +1,5 @@
+//navbar
+
 function openNav() {
     document.getElementById("navbar").style.width = "250px";
     document.getElementById("shift").style.marginLeft = "250px";
@@ -9,7 +11,7 @@ function closeNav() {
 
 var dropdown = document.getElementsByClassName("dropdown-btn");
 var i;
-
+//dropdown menu in navbasdar
 for (i = 0; i < dropdown.length; i++) {
   dropdown[i].addEventListener("click", function() {
     this.classList.toggle("active");
