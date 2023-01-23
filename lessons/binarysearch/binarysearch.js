@@ -90,6 +90,7 @@ function show(){
     text("14",800,240);
     text("15",840,240);
     text("17",880,240);
+    //stage variable changes what is being shown to the screen
     if(stage==0){
         fill(255);
         stroke(0);
@@ -249,7 +250,7 @@ function setup(){
     //   start at middle
     //   Compare element with middle of array
     //   If middle of array is smaller, then delete bottom half of array
-    //   Restart
+    //   Repeat
 }
 
 function draw(){
@@ -259,10 +260,10 @@ function draw(){
 }
 
 function mousePressed(){
-    if(mouseX>600 && mouseX<680 && mouseY>300 && mouseY<340){
+    if(mouseX>600 && mouseX<680 && mouseY>300 && mouseY<340){//if within coords
         if(stage==0 || stage==7){
-            stage=1;
-            timer=millis();
+            stage=1;//start
+            timer=millis();//set timer
         }else{
             stage=0;
         }

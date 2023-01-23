@@ -168,7 +168,7 @@ function show(){
 
 
     textAlign(LEFT,CENTER);
-    if(stage==0){
+    if(stage==0){//stage variable controls whats being displayed
         text("Queue: ",450,230);
         text("Visited: ",450,255);
         text("Node X: ", 450,280);
@@ -322,9 +322,9 @@ function show(){
 }
 
 function mousePressed(){
-    if(mouseX<=740 && mouseX>=660 && mouseY<=170 && mouseY>=130){
+    if(mouseX<=740 && mouseX>=660 && mouseY<=170 && mouseY>=130){//if mouth over button
         if(stage!=18){
-            stage++;
+            stage++;//next step
         }else{
             stage=0;
         }
