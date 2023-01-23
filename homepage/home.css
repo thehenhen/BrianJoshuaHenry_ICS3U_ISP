@@ -68,16 +68,23 @@
     
 }
 
-.sidenav a {
+.dropdown-container {
+    display: none;
+    background-color: #000000;
+    padding-left: 8px;
+  }
+
+.sidenav a, .dropdown-btn {
     padding: 7px 7px 7px 32px;
     font-size: 30px;
     display:block;
     transition:0.3s;
     text-decoration:none;
     color: #818181;
+    background-color: black;
 }
 
-.sidenav a:hover {
+.sidenav a:hover, .dropdown-btn:hover {
     color: #D3D3D3;
 }
 
@@ -90,8 +97,14 @@
 }
 
 #main {
-    transition: margin-left .4s;
-    padding: 20px;
+    
+    padding: 40px;
+}
+
+#shift {
+    transition:margin-left .4s;
+    padding-top:20px;
+    padding-left:10px;
 }
 
 .menubtn { 
@@ -105,3 +118,6 @@
     vertical-align: middle;
 }
 
+#lessons {
+    font-size: 8px;
+}
