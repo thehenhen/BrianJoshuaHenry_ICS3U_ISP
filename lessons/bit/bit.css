@@ -121,3 +121,29 @@
 #lessons {
     font-size: 20px;
 }
+
+footer {
+	margin-top: 18.5%;
+	width: 100%;
+	background: #1f3a67ff;
+	color: grey;
+	text-align: center;
+	height: auto;  
+	padding: 50px;
+}
+
+
+#logo {
+	max-height: 20%;
+    height:20%;
+	object-fit: scale-down;
+}
+
+#github-link {
+	opacity: 0.5;
+	transition-duration: .3s;
+}
+
+#github-link:hover {
+	opacity: 1;
+}
