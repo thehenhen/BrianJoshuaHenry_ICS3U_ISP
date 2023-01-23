@@ -1,5 +1,10 @@
 * {
     font-family: 'PT Sans';
+    box-sizing: border-box;
+}
+
+#content {
+    margin-left: 1%;
 }
 
 #topnav {
@@ -23,56 +28,30 @@
     background-color: gray;
 }
 
-.title-section {
+.home-section {
     padding: 0px 0px;
 }
 
-table {
-    margin: auto;
-    width: 90%;
-    text-align: center;
-    border: 1px dotted;
-}
 
-tr, td {
-    margin: auto;
-    width: 30%;
-    border: 1px dotted;
-    height: 80px;
-}
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 40px;
+    height: 300px; 
+  }
 
-.buttons {
-    width: 100%;
-    table-layout: fixed;
-    border-collapse: collapse;
-}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 
-.buttons button {
-    width: 100%;
-}
-
-td button {
-    width: 100%;
-    height: 100%;
-    font-size: 25px;
-    transition: 0.3s;
-}
-
-td button:hover {
-    transition: 0.3s;
-    border: solid 10px black;
-}
-
-td:hover {
-    font-size: 26px;
-    transition: 0.3s;
-    background-color: gray;
-    position: relative;
-}
-
-#main {
-    padding: 20px;
-    transition: margin-left .4s;
+.pfp {
+    width: 80px;
+    float: right;
+    margin-right:30px;
+    border-radius: 20%;
+    border:5px solid white
 }
 
 .sidenav {
@@ -89,16 +68,23 @@ td:hover {
     
 }
 
-.sidenav a {
+.dropdown-container {
+    display: none;
+    background-color: #000000;
+    padding-left: 8px;
+  }
+
+.sidenav a, .dropdown-btn {
     padding: 7px 7px 7px 32px;
     font-size: 30px;
-    display: block;
-    transition: 0.3s;
-    text-decoration: none;
+    display:block;
+    transition:0.3s;
+    text-decoration:none;
     color: #818181;
+    background-color: black;
 }
 
-.sidenav a:hover {
+.sidenav a:hover, .dropdown-btn:hover {
     color: #D3D3D3;
 }
 
@@ -110,15 +96,30 @@ td:hover {
     position: absolute;
 }
 
-.menubtn {
-    font-size: 30px;
-    cursor: pointer;
+#main {
+    
+    padding: 40px;
+}
+
+#shift {
+    transition:margin-left .4s;
+    padding-top:20px;
+    padding-left:10px;
+}
+
+.menubtn { 
+    font-size:30px;
+    cursor:pointer; 
     padding-top: 10px;
     padding-left: 25px;
     padding-right: 10px;
     margin-bottom: 15px;
-    display: inline-block;
+    display: inline-block;  
     vertical-align: middle;
+}
+
+#lessons {
+    font-size: 8px;
 }
 
   .gallery {
